@@ -1,0 +1,1 @@
+# perl6-read-write-tests
