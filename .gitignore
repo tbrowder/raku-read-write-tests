@@ -19,4 +19,4 @@ nytprof.out
 *.bs
 /_eumm/
 large-*-*-file.txt
-*~
+*~.precomp
