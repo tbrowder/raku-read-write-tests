@@ -6,6 +6,9 @@
 #   the time for 'wc' on juvat2 was 1m57s
 #   the time for 'wc' on bigtom was 1m30s
 
+use lib '.';
+use LIBCIO;
+
 my $prog = $*PROGRAM.basename;
 if !@*ARGS.elems {
   say "Usage: $prog <input file> [lines | split | slurp]" ~ "\n";
