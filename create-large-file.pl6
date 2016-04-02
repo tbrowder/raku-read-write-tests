@@ -41,7 +41,7 @@ my $ofil = "large-{$siz}-{$txt}-file.txt";
 
 # how many (lines) iterations needed?
 my $slen   = $str.chars;
-my $nlines = $siz * $mul / $slen;
+my $nlines = $siz * $mul div $slen;
 
 say "Requested file size: $siz $txt";
 say "String size:  $slen";
