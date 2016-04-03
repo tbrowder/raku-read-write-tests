@@ -10,8 +10,11 @@ my $use_gb = 0;
 
 my $prog = $*PROGRAM.basename;
 if !@*ARGS.elems {
-  say "Usage: $prog <file size in Mb (an integer > 0)> [g]]\n";
-  say "  Add a 'g' or 'G' as a second arg for gigabytes.";
+  say q:to/END/;
+  Usage: $prog <file size in Mb (an integer > 0)> [g]]
+
+    Add a 'g' or 'G' as a second arg for gigabytes.
+  END
   exit;
 }
 
