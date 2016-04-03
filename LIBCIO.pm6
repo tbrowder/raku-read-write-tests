@@ -4,17 +4,6 @@ unit module LIBCIO;
 
 use NativeCall;
 
-#=====================================================
-# From: GNU libc, the standard function 'malloc':
-# 
-# Function: void * malloc (size_t size)
-# 
-# This function returns a pointer to a newly allocated block size bytes
-# long, or a null pointer if the block could not be allocated.
-# 
-#=====================================================
-
-
 
 #=====================================================
 # From: GNU libc, the standard function 'fopen':
@@ -36,6 +25,10 @@ use NativeCall;
 #   m - The file is opened and accessed using mmap. This is only
 #       supported with files opened for reading.
 # ...
+#
+#-----------------------------------------------------
+sub fopen(Str, Str) returns Pointer is native('fopen') is export { * }
+#-----------------------------------------------------
 #=====================================================
 
 #=====================================================
@@ -55,6 +48,10 @@ use NativeCall;
 # it might get an error because the disk is full. Even if you know the
 # buffer is empty, errors can still occur when closing a file if you are
 # using NFS.
+#
+#-----------------------------------------------------
+sub fclose(Pointer) returns int32 is native('fclose') is export { * }
+#-----------------------------------------------------
 #=====================================================
 
 
@@ -96,5 +93,25 @@ use NativeCall;
 
 
 #sub getline() returns ssize_t is native(Str) is export { * };
-sub getline() returns size_t is native(Str) is export { * };
-#======================================================================
+#sub getline() returns size_t is native(Str) is export { * };
+#=====================================================
+
+
+#=====================================================
+# From: GNU libc, the standard function 'malloc':
+# 
+# Function: void * malloc (size_t size)
+# 
+# This function returns a pointer to a newly allocated block size bytes
+# long, or a null pointer if the block could not be allocated.
+# 
+#=====================================================
+
+#=====================================================
+# From: GNU libc, the standard function 'free':
+# 
+# Function: void free (void *ptr)
+# 
+# The free function deallocates the block of memory pointed at by ptr.
+# 
+#=====================================================
