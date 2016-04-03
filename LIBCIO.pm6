@@ -5,6 +5,18 @@ unit module LIBCIO;
 use NativeCall;
 
 #=====================================================
+# From: GNU libc, the standard function 'malloc':
+# 
+# Function: void * malloc (size_t size)
+# 
+# This function returns a pointer to a newly allocated block size bytes
+# long, or a null pointer if the block could not be allocated.
+# 
+#=====================================================
+
+
+
+#=====================================================
 # From: GNU libc, the standard function 'fopen':
 # 
 # Function: FILE * fopen (const char *filename, const char *opentype)
