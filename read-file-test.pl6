@@ -82,6 +82,17 @@ elsif $method ~~ /split/ {
   # adjust for newlines being removed
   $nchars += $nlines;
 }
+elsif $method ~~ /getline/ {
+  # try NativeCall
+  die "FATAL:  Option '$method' not yet available";
+  for $ifil.IO.open.split("\n") -> $line {
+    ++$nlines;
+    $nchars += $line.chars;
+    #say "line: '$line'";
+  }
+  # adjust for newlines being removed
+  $nchars += $nlines;
+}
 
 say "  Normal end.";
 say "  For input file '$ifil':";
