@@ -15,7 +15,7 @@ if !@*ARGS.elems {
     lines   - uses 'IO.lines' (default)
     split   - uses 'IO.split(\"\\nl\")'
     slurp   - uses 'IO.slurp'
-    getline - uses GNU libc's 'getline'
+    getline - uses GNU libc 'getline'
 
   Note you only need to specify the first two chars of an option.
   END
@@ -32,19 +32,19 @@ my $fsiz = $ifil.IO.s;
 my $method = shift @*ARGS;
 $method = 'lines' if !$method;
 if $method ~~ /^li/ {
-  $method = 'lines';
+  $method = 'IO.lines';
 }
 elsif $method ~~ /^sp/ {
-  $method = 'split';
+  $method = 'IO.split';
 }
 elsif $method ~~ /^sl/ {
-  $method = 'slurp';
+  $method = 'IO.slurp';
 }
 elsif $method ~~ /^ge/ {
-  $method = 'getline';
+  $method = 'GNU libc getline';
 }
 
-say "  Method: IO.$method";
+say "  Method: $method";
 say "  File '$ifil' size: $fsiz bytes";
 
 my $nlines = 0;
@@ -83,6 +83,12 @@ elsif $method ~~ /getline/ {
   # try NativeCall
   use lib '.';
   use LIBCIO;
+
+  # start testing
+  # get a file pointer
+  my Str $mode = 'r';
+  my $fp = LIBCIO::fopen($ifil, $mode);
+
   die "FATAL:  Option '$method' not yet available";
   for $ifil.IO.open.split("\n") -> $line {
     ++$nlines;
