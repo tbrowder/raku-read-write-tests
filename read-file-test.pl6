@@ -6,9 +6,6 @@
 #   the time for 'wc' on juvat2 was 1m57s
 #   the time for 'wc' on bigtom was 1m30s
 
-use lib '.';
-use LIBCIO;
-
 my $prog = $*PROGRAM.basename;
 if !@*ARGS.elems {
   say qq:to/END/;
@@ -84,6 +81,8 @@ elsif $method ~~ /split/ {
 }
 elsif $method ~~ /getline/ {
   # try NativeCall
+  use lib '.';
+  use LIBCIO;
   die "FATAL:  Option '$method' not yet available";
   for $ifil.IO.open.split("\n") -> $line {
     ++$nlines;
