@@ -11,11 +11,17 @@ use LIBCIO;
 
 my $prog = $*PROGRAM.basename;
 if !@*ARGS.elems {
-  say "Usage: $prog <input file> [lines | split | slurp]" ~ "\n";
-  say "Options:";
-  say "  lines - uses 'IO.lines' (default)";
-  say "  split - uses 'IO.split(\"\\nl\")'";
-  say "  slurp - uses 'IO.slurp'" ~ "\n";
+  say qq:to/END/;
+  Usage: $prog <input file> [lines | split | slurp | getline]
+
+  Options:
+    lines   - uses 'IO.lines' (default)
+    split   - uses 'IO.split(\"\\nl\")'
+    slurp   - uses 'IO.slurp'
+    getline - uses GNU libc's 'getline'
+
+  Note you only need to specify the first two chars of an option.
+  END
   exit;
 }
 
@@ -37,7 +43,10 @@ elsif $method ~~ /^sp/ {
 elsif $method ~~ /^sl/ {
   $method = 'slurp';
 }
- 
+elsif $method ~~ /^ge/ {
+  $method = 'getline';
+}
+
 say "  Method: IO.$method";
 say "  File '$ifil' size: $fsiz bytes";
 
