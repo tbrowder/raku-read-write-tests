@@ -5,7 +5,7 @@ my $ifil = 'small-file.txt';
 use NativeCall;
 
 # Function: ssize_t getline (char **lineptr, size_t *n, FILE *stream)
-sub getline(CArray[uint32] is rw, uint32 is rw, Pointer) returns int32 is native(Str) { * }
+sub getline(CArray[uint32], uint32 is rw, Pointer) returns int32 is native(Str) { * }
 # Function: void * malloc (size_t size)
 sub malloc(uint32) returns Pointer is native(Str) { * }
 # Function: void free (void *ptr)
