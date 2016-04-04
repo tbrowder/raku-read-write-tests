@@ -82,12 +82,16 @@ elsif $method ~~ /split/ {
 elsif $method ~~ /getline/ {
   # try NativeCall
   use lib '.';
-  use LIBCIO;
+  # specify the functions to be used
+  use LIBCIO :fopen, :fclose;
 
   # start testing
   # get a file pointer
   my Str $mode = 'r';
-  my $fp = LIBCIO::fopen($ifil, $mode);
+  my $fp = fopen($ifil, $mode);
+
+  # close the file
+  fclose($fp);
 
   die "FATAL:  Option '$method' not yet available";
   for $ifil.IO.open.split("\n") -> $line {
