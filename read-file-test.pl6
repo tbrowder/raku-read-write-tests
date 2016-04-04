@@ -83,12 +83,21 @@ elsif $method ~~ /getline/ {
   # try NativeCall
   use lib '.';
   # specify the functions to be used
-  use LIBCIO :fopen, :fclose;
+  use LIBCIO :fopen, :fclose, :getline, :malloc;
 
   # start testing
+  # need a special buffer for the input string
+  #use NativeCall;
+  my $bufsiz = 200;
+  #my $buf = malloc($bufsiz);
+  # my $buf = CArray[uint8].new($s.encode.list);
+
   # get a file pointer
-  my Str $mode = 'r';
+  my $mode = "r";
   my $fp = fopen($ifil, $mode);
+  #while getline($buf, $bufsiz, $fp) != -1 {
+  #  say $buf;
+  #}
 
   # close the file
   fclose($fp);
