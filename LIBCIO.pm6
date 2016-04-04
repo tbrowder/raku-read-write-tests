@@ -9,6 +9,9 @@ use NativeCall;
 # From: GNU libc, the standard function 'fopen':
 # 
 # Function: FILE * fopen (const char *filename, const char *opentype)
+#-----------------------------------------------------
+our sub fopen(Str, Str) returns Pointer is native(Str) is export(:fopen) { * }
+#-----------------------------------------------------
 # 
 # The fopen function opens a stream for I/O to the file filename, and
 # returns a pointer to the stream.
@@ -26,15 +29,15 @@ use NativeCall;
 #       supported with files opened for reading.
 # ...
 #
-#-----------------------------------------------------
-our sub fopen(Str, Str) returns Pointer is native(Str) is export(:fopen) { * }
-#-----------------------------------------------------
 #=====================================================
 
 #=====================================================
 # From: GNU libc, the standard function 'fclose':
 # 
 # Function: int fclose (FILE *stream)
+#-----------------------------------------------------
+our sub fclose(Pointer) returns int32 is native(Str) is export(:fclose) { * }
+#-----------------------------------------------------
 # 
 # This function causes stream to be closed and the connection to the
 # corresponding file to be broken. Any buffered output is written and
@@ -49,9 +52,6 @@ our sub fopen(Str, Str) returns Pointer is native(Str) is export(:fopen) { * }
 # buffer is empty, errors can still occur when closing a file if you are
 # using NFS.
 #
-#-----------------------------------------------------
-our sub fclose(Pointer) returns int32 is native(Str) is export(:fclose) { * }
-#-----------------------------------------------------
 #=====================================================
 
 
@@ -59,6 +59,10 @@ our sub fclose(Pointer) returns int32 is native(Str) is export(:fclose) { * }
 # From: GNU libc, the non-standard function 'getline':
 # 
 # Function: ssize_t getline (char **lineptr, size_t *n, FILE *stream)
+#-----------------------------------------------------
+#our sub getline(Pointer is rw, uint32 is rw, Pointer) returns int32 is native(Str) is export(:getline) { * }
+our sub getline(CArray is rw, uint32 is rw, Pointer) returns int32 is native(Str) is export(:getline) { * }
+#-----------------------------------------------------
 # 
 # This function reads an entire line from stream, storing the text
 # (including the newline and a terminating null character) in a buffer
@@ -90,10 +94,7 @@ our sub fclose(Pointer) returns int32 is native(Str) is export(:fclose) { * }
 # 
 # If an error occurs or end of file is reached without any bytes read,
 # getline returns -1.
-
-
-#sub getline() returns ssize_t is native(Str) is export { * };
-#sub getline() returns size_t is native(Str) is export { * };
+#
 #=====================================================
 
 
@@ -101,6 +102,9 @@ our sub fclose(Pointer) returns int32 is native(Str) is export(:fclose) { * }
 # From: GNU libc, the standard function 'malloc':
 # 
 # Function: void * malloc (size_t size)
+#-----------------------------------------------------
+our sub malloc(uint32) returns Pointer is native(Str) is export(:malloc) { * }
+#-----------------------------------------------------
 # 
 # This function returns a pointer to a newly allocated block size bytes
 # long, or a null pointer if the block could not be allocated.
@@ -111,6 +115,9 @@ our sub fclose(Pointer) returns int32 is native(Str) is export(:fclose) { * }
 # From: GNU libc, the standard function 'free':
 # 
 # Function: void free (void *ptr)
+#-----------------------------------------------------
+our sub free(Pointer) is native(Str) is export(:free) { * }
+#-----------------------------------------------------
 # 
 # The free function deallocates the block of memory pointed at by ptr.
 # 
