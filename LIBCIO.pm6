@@ -27,7 +27,7 @@ use NativeCall;
 # ...
 #
 #-----------------------------------------------------
-sub fopen(Str, Str) returns Pointer is native('fopen') is export { * }
+our sub fopen(Str, Str) returns Pointer is native(Str) is export(:fopen) { * }
 #-----------------------------------------------------
 #=====================================================
 
@@ -50,7 +50,7 @@ sub fopen(Str, Str) returns Pointer is native('fopen') is export { * }
 # using NFS.
 #
 #-----------------------------------------------------
-sub fclose(Pointer) returns int32 is native('fclose') is export { * }
+our sub fclose(Pointer) returns int32 is native(Str) is export(:fclose) { * }
 #-----------------------------------------------------
 #=====================================================
 
