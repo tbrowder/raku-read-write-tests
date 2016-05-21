@@ -1,16 +1,24 @@
 #!/usr/bin/env perl6
 
 # test file sizes:
-my @GB = <0 1 2 3 4 5 6 7 8 9 10>;
-#my @GB = <0>; # a small file for testing this file
+#my @GB = <0 1 2 3 4 5 6 7 8 9 10>;
+#my @GB = <0 1>;
+my @GB = <0>; # a small file for testing this file
 
 my $run-perl6 = True;
 #my $run-perl6 = False; # for speedy testing of this file
 
+# get host info
 my $proc = shell "hostname -s", :out;
 my $HOST = $proc.out.slurp-rest;
 $HOST.=chomp;
+$proc = shell "uname -a", :out;
+my $HOSTINFO = $proc.out.slurp-rest;
+$HOSTINFO.=chomp;
 
+# use the system 'time' function to collect process time
+my $TFIL = '.systime'; # will be overwritten upon each 'time' call
+my $TCMD = "time -p -o $TFIL";
 # get perl versions
 
 # perl 5 =====
@@ -36,6 +44,7 @@ my $start = now;
 $fp.say("====================================");
 $fp.say("# Start testing at: $sdate");
 $fp.say("# Test host: $HOST");
+$fp.say("# Host info: $HOSTINFO");
 $fp.say("# Perl 5 version: $p5v");
 my @s = $p6v.lines;
 my $s = @s.join(' ');
@@ -50,6 +59,7 @@ $fp.say("# Rakudo version: $rv");
 $fp.say("# MoarVM version: $mv");
 $fp.say("====================================");
 
+# commands for the various tests
 my $P5R = './read-file-test.pl';
 my $P5W = './create-large-file.pl';
 my $P6R = './read-file-test.pl6';
@@ -61,6 +71,7 @@ for @GB -> $G {
   $fp.say("#***** Working with $G Gb...");
   $fp.say("# Starting at: $sdate");
   my $LFIL = 'large-' ~ $G ~ '-gb-file.txt';
+
   if !$LFIL.IO.f {
     # choose which Perl to create the missing files
     #my $wver = 5;
@@ -69,7 +80,7 @@ for @GB -> $G {
     $fp.say("  #---------------------------------");
     $fp.say("  # Creating file '$LFIL' with Perl $wver...");
     $fp.say("  #---------------------------------");
-    my $proc = shell "$wexe $G", :out;
+    my $proc = shell "$TCMD $wexe $G", :out;
     my $s    = $proc.out.slurp-rest;
     $s.=chomp;
     #my @s = $s.words;
@@ -78,14 +89,14 @@ for @GB -> $G {
     }
   }
 
-  my ($proc, $s, $p5time, $p6time);
+  my ($proc, $s, $p5time, $p6time, $p5usec, $p6usec);
   {
     $fp.say("  #---------------------------------");
     $fp.say("  # Start read process...");
     $fp.say("  #---------------------------------");
     my $pstart = now;
     $fp.say("  Reading file '$LFIL' with Perl 5...");
-    $proc = shell "$P5R $LFIL", :out;
+    $proc = shell "$TCMD $P5R $LFIL", :out;
     $s    = $proc.out.slurp-rest;
     $s.=chomp;
     $fp.say($s);
@@ -96,12 +107,19 @@ for @GB -> $G {
     my $pet = $pend - $pstart;
     $p5time = $pet;
     my $pets = sprintf "%.2f", $pet;
- #   my $ps = $pet < 1000 ?? " ($pets s)" !! '';
     my $ps = " ($pets s)";
     my $pdt = delta-time($pet);
     $pdt.=Str;
+
+    # get system time (real, user, sys)
+    my ($rts, $rt, $uts, $ut, $sts, $st) = read-sys-time($TFIL);
+    $p5usec = $uts;
+
     $fp.say("  #---------------------------------");
     $fp.say("  # End read process - delta time: $pdt$ps");
+    $fp.say("  #   Real time:   $rt");
+    $fp.say("  #   User time:   $ut");
+    $fp.say("  #   System time: $st");
     $fp.say("  #---------------------------------");
     $fp.flush;
   }
@@ -112,7 +130,7 @@ for @GB -> $G {
     $fp.say("  #---------------------------------");
     my $pstart = now;
     $fp.say("  Reading file '$LFIL' with Perl 6...");
-    $proc = shell "$P6R $LFIL", :out;
+    $proc = shell "$TCMD $P6R $LFIL", :out;
     $s    = $proc.out.slurp-rest;
     $s.=chomp;
     $fp.say($s);
@@ -123,16 +141,24 @@ for @GB -> $G {
     my $pet = $pend - $pstart;
     $p6time = $pet;
     my $pets = sprintf "%.2f", $pet;
-#    my $ps = $pet < 1000 ?? " ($pets s)" !! '';
     my $ps = " ($pets s)";
     my $pdt = delta-time($pet);
     $pdt.=Str;
+
+    # get system time (real, user, sys)
+    my ($rts, $rt, $uts, $ut, $sts, $st) = read-sys-time($TFIL);
+    $p6usec = $uts;
+
     $fp.say("  #---------------------------------");
     $fp.say("  # End read process - delta time: $pdt$ps");
+    $fp.say("  #   Real time:   $rt");
+    $fp.say("  #   User time:   $ut");
+    $fp.say("  #   System time: $st");
     $fp.say("  #---------------------------------");
     $fp.flush;
   }
-  my $p6tp5t = sprintf "%.1f", $p6time/$p5time;
+  #my $p6tp5t = sprintf "%.1f", $p6time/$p5time;
+  my $p6tp5t = sprintf "%.1f", $p6usec/$p5usec;
   $fp.say("  #---------------------------------");
   $fp.say("  # Perl 6 time / Perl 5 time: $p6tp5t");
   $fp.say("  #---------------------------------");
@@ -200,4 +226,33 @@ sub delta-time($Time) {
     my Int $min = ($sec/$sec-per-min).Int;
     $sec    = $sec - ($sec-per-min * $min);
     return sprintf "%dh%02dm%05.2fs", $hr, $min, $sec;
+}
+
+sub read-sys-time($time-file) {
+    my ($rts, $uts, $sts);
+    for $time-file.IO.lines -> $line {
+       my $typ = $line.words[0];
+       my $sec = $line.words[1];
+       given $typ {
+           when $_ ~~ /real/ {
+               $rts = $sec;
+           }
+           when $_ ~~ /user/ {
+               $uts = $sec;
+           }
+           when $_ ~~ /sys/ {
+               $sts = $sec;
+           }
+       }
+    }
+
+    # convert each to hms
+    my $rt = delta-time($rts);
+    my $ut = delta-time($uts);
+    my $st = delta-time($sts);
+
+    # back to the caller
+    return $rts, $rt,
+           $uts, $ut,
+           $sts, $st;
 }
