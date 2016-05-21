@@ -22,3 +22,6 @@ large-*-*-file.txt
 *~
 .precomp
 core
+logs/
+.systime
+*.log
