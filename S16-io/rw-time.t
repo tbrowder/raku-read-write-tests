@@ -3,40 +3,8 @@
 # test file sizes:
 #my @GB = <0 1 2 3 4 5 6 7 8 9 10>;
 my $G = 1;
-my $run-perl6 = True;
-
-
-if !@*ARGS.elems {
-  say qq:to/END/;
-  Usage: $prog <mode> [debug]
-
-  Modes:
-    full  - outputs detailed run data
-    short - outputs run data in a short format for easy
-              run-to-run comparisons
-    test  - outputs just the perl6/perl5 user time ratio
-              (the default mode for an unrecognized mode)
-
-  The 'short' and 'full' modes output data to a log file,
-    while the 'test' mode outputs results to STDOUT.
-
-  Note you only need to specify the first two chars of a mode.
-  END
-  exit;
-}
-
-my $mode;
-for @*ARGS -> $arg {
-  given $arg {
-    when $_ ~~ /^fu/ { $mode = 'full'  }
-    when $_ ~~ /^sh/ { $mode = 'short' }
-    when $_ ~~ /^te/ { $mode = 'test'  }
-    when $_ ~~ /^de/ { $debug = True   }
-  }
-}
-$mode = 'test' if !$mode;
-
-say "DEBUG: mode is '$mode'...." if $debug;
+my $LFIL = 'large-' ~ $G ~ '-gb-file.txt';
+my $mode = 'test';
 
 # use the system 'time' function to collect process time
 my $TFIL = '.systime'; # will be overwritten upon each 'time' call
@@ -47,8 +15,6 @@ my $P5R = './read-file-test.pl';
 my $P5W = './create-large-file.pl';
 my $P6R = './read-file-test.pl6';
 my $P6W = './create-large-file.pl6';
-
-my $LFIL = 'large-' ~ $G ~ '-gb-file.txt';
 
 if !$LFIL.IO.f {
   # choose which Perl to create the missing files
@@ -63,11 +29,6 @@ if !$LFIL.IO.f {
 
 my ($p5time, $p6time, $p5usec, $p6usec);
 {
-  if $mode eq 'full' {
-    $fp.say("  #---------------------------------");
-    $fp.say("  # Start read process...");
-    $fp.say("  #---------------------------------");
-  }
   my $pstart = now;
   if $mode eq 'full' {
     $fp.say("  Reading file '$LFIL' with Perl 5...");
@@ -135,24 +96,9 @@ if $mode eq 'full' {
   $fp.flush;
 }
 
-if $mode eq 'full' {
-  $fp.say("====================================");
-  $fp.say("End testing.");
-  $fp.say("====================================");
-}
-
 my $end = now;
 my $et = $end - $start;
 my $edate = my-date-time;
-
-if $mode eq 'full' {
-  $fp.say("====================================");
-  $fp.say("test completed.");
-  $fp.say("WARNING:  No Perl 6 tests were run.") if !$run-perl6;
-  $fp.say("End time: $edate");
-  $fp.say("Total elapsed time: $et sec");
-}
-
 
 if $mode eq 'full' {
   my $dt = delta-time($et);
@@ -168,19 +114,9 @@ if $mode eq 'full' {
   say "See log file '$ofil'.";
 }
 
-# delete the $TFIL unless we're debugging
-unlink $TFIL if !$TFIL.IO.f && !$debug;
+# delete the $TFIL
+unlink $TFIL if $TFIL.IO.f;
 
 # if we are in the 'test' mode all we care about
 # is the perl6/perl5 user ratio
-if $mode eq 'test' {
-  print $p6tp5t;
-  exit;
-}
-
-# if we are in the 'short' mode put some info to the log file
-if $mode eq 'short' {
-  $fp.say("rakudo version $rv perl6/perl5 ratio $p6tp5t");
-  say "See log file '$ofil'.";
-  exit;
-}
+print $p6tp5t;
