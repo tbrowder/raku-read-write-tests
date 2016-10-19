@@ -2,7 +2,9 @@
 
 Perl 6 is **very** slow compared to Perl 5 reading text files line by line.
 Such line processing is a staple of data processing in use cases such as
-analyzing output of many kinds of raytracing programs such as [BRL-CAD](http://brlcad.org).
+analyzing output of many kinds of programs.  An example is the category of
+programs known as raytracing, one of which, used heavily
+by analysts and scientists, is [BRL-CAD](http://brlcad.org).
 
 This test suite was developed to monitor the progress of Perl 6 versus Perl 5 in closing
 the gap of processing an ASCII file of many lines.  The test files are of varying
@@ -17,5 +19,5 @@ numbers of lines, each line consisting of 100 characters, including the ending n
 
 Notes:
 
-1. See the complete results in log files in the _logs_ subdirectory.
+1. See the complete results in log files in the **logs** subdirectory.
 2. **RT** - run time
