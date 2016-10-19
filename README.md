@@ -1,7 +1,7 @@
-# perl6-read-write-tests ##
+# Perl 6 Read/Write Tests
 
 Perl 6 is **very** slow compared to Perl 5 reading text files line by line.
-SUch line processing is a staple of data processing in use cases such as
+Such line processing is a staple of data processing in use cases such as
 analyzing output of many kinds of raytracing programs such as [BRL-CAD](http://brlcad.org).
 
 This test suite was developed to monitor the progress of Perl 6 versus Perl 5 in closing
