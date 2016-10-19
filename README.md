@@ -10,12 +10,12 @@ numbers of lines, each line consisting of 100 characters, including the ending n
 
 ## Results of recent file read tests
 
+| Date       | Rakudo Version      | File Size (lines) | Perl 5 RT | Perl 6 RT | P6/P5 |
+| ---        | ---                 | ---:              | ---:      | ---:      | ---:  |
+| 2016-10-18 | 2016.10-16-geb6907e |      1_000_000    |    1.39 s |  12.61 s  | 25.2  |
+| 2016-10-18 | 2016.10-16-geb6907e |  6_000_000_000    |   75.47 s | 737.63 s  | 18.2  |
+
 Notes:
 
 1. See the complete results in log files in the _logs_ subdirectory.
-1. RT - run time
-
-| Date       | Rakudo Version      | File Size (lines) | Perl 5 RT | Perl 6 RT | P6/P5 |
-| :---       | :---                | ---:              | ---:      | ---:      | ---:  |
-| 2016-10-18 | 2016.10-16-geb6907e |      1_000_000    |    1.39 s |  12.61 s  | 25.2  |
-| 2016-10-18 | 2016.10-16-geb6907e |  6_000_000_000    |   75.47 s | 737.63 s  | 18.2  |
+2. **RT** - run time
