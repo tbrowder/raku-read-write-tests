@@ -50,7 +50,10 @@ say "  File '$ifil' size: $fsiz bytes";
 my $nlines = 0;
 my $nchars = 0;
 if $method ~~ /lines/ {
-  for $ifil.IO.lines -> $line {
+
+  my $fp = open $ifil, :r :enc('ascii');
+  #for $ifil.IO.lines -> $line {
+  for $fp.lines -> $line {
     ++$nlines;
     $nchars += $line.chars;
     #say "line: '$line'";
