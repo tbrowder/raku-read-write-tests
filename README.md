@@ -8,9 +8,8 @@ This test suite was developed to monitor the progress of Perl 6 versus Perl 5 in
 the gap of processing an ASCII file of many lines.  The test files are of varying
 numbers of lines, each line consisting of 100 characters, including the ending newline.
 
-Results of recent tests:
+Results of recent file read tests:
 
-| Date | Rakudo Version | File Size | Perl 5    | Perl 6    | P6/P5 |
-|      | Version        |  (Gb)     | Read Time | Read Time |       |
+| Date | Rakudo Version | File Size (Gb) | Perl 5    | Perl 6    | P6/P5 
 |------|----------------|-----------|-----------|-----------|-------|
-
+| 2016-10-18 |          |  4 Gb     |           |           |       |
