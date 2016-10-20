@@ -4,6 +4,5 @@ perl6:
     - latest
 install:
     - rakudobrew build-panda
-    - panda installdeps .
     - panda install zef
     - zef test .
