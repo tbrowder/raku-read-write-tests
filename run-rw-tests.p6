@@ -7,10 +7,14 @@ use RW-TEST;
 # test file sizes:
 #my @GB = <0 1 2 3 4 5 6 7 8 9 10>;
 #my @GB = <0 1>;
-my @GB = <0>; # a small file for testing this file
+my @GB = <1 2>; # a small file for testing this file
 
 my $run-perl6 = True;
 #my $run-perl6 = False; # for speedy testing of this file
+
+# create two dirs if they don't exist
+mkdir 'data' if not 'data'.IO ~~ :d;
+mkdir 'logs' if not 'logs'.IO ~~ :d;
 
 # get host info
 my $proc = shell "hostname -s", :out;
