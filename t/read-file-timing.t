@@ -6,7 +6,7 @@ plan 1;
 # test file sizes:
 #my @GB = <0 1 2 3 4 5 6 7 8 9 10>;
 my $G = 1;
-my $LFIL = 'large-' ~ $G ~ '-gb-file.txt';
+my $LFIL = './data/large-' ~ $G ~ '-gb-file.txt';
 my $mode = 'test';
 
 # use the system 'time' function to collect process time
@@ -14,10 +14,10 @@ my $TFIL = '.systime'; # will be overwritten upon each 'time' call
 my $TCMD = "time -p -o $TFIL";
 
 # commands for the various tests
-my $P5R = './read-file-test.pl';
-my $P5W = './create-large-file.pl';
-my $P6R = './read-file-test.pl6';
-my $P6W = './create-large-file.pl6';
+my $P5R = '../bin/read-file-test.pl';
+my $P5W = '../bin/create-large-file.pl';
+my $P6R = '../bin/read-file-test.p6';
+my $P6W = '../bin/create-large-file.p6';
 
 if !$LFIL.IO.f {
   # choose which Perl to create the missing files
@@ -72,15 +72,15 @@ my ($p5time, $p6time, $p5usec, $p6usec);
 
   if $mode eq 'full' {
     $fp.say("  #---------------------------------");
-    $fp.say("  # End read process - delta time: $pdt$ps");
+    $fp.say("  # End read process:");
     $fp.say("  #   Real time:   $rt");
-    $fp.say("  #   User time:   $ut");
+    $fp.say("  #   User time:   $ut ($p6usec sec)");
     $fp.say("  #   System time: $st");
     $fp.say("  #---------------------------------");
     $fp.flush;
   }
 }
-#my $p6tp5t = sprintf "%.1f", $p6time/$p5time;
+#my $p6tp5t = sprintf "%.1f", $p6time/$p5t
 my $p6tp5t = sprintf "%.1f", $p6usec/$p5usec;
 if $mode eq 'full' {
   $fp.say("  #---------------------------------");
