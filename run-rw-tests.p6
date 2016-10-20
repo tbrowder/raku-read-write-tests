@@ -5,9 +5,9 @@ use lib '.';
 use RW-TEST;
 
 # test file sizes:
-my @GB = <0 1 2 3 4 5 6 7 8 9 10>;
+#my @GB = <0 1 2 3 4 5 6 7 8 9 10>;
 #my @GB = <0 1>;
-#my @GB = <0>; # a small file for testing this file
+my @GB = <0>; # a small file for testing this file
 
 my $run-perl6 = True;
 #my $run-perl6 = False; # for speedy testing of this file
@@ -40,7 +40,7 @@ my $p6v  = $proc.out.slurp-rest;
 
 # put all output in a log file
 my $stamp = my-date-time-stamp;
-my $ofil = 'run-rw-tests-' ~ $stamp ~ '.log';
+my $ofil = './logs/run-rw-tests-' ~ $stamp ~ '.log';
 my $fp = open($ofil, :w);
 
 my $sdate = my-date-time;
@@ -64,17 +64,17 @@ $fp.say("# MoarVM version: $mv");
 $fp.say("====================================");
 
 # commands for the various tests
-my $P5R = './read-file-test.pl';
-my $P5W = './create-large-file.pl';
-my $P6R = './read-file-test.pl6';
-my $P6W = './create-large-file.pl6';
+my $P5R = './bin/read-file-test.pl';
+my $P5W = './bin/create-large-file.pl';
+my $P6R = './bin/read-file-test.p6';
+my $P6W = './bin/create-large-file.p6';
 
 my $ntests = 0;
 for @GB -> $G {
   my $sdate = my-date-time;
   $fp.say("#***** Working with $G Gb...");
   $fp.say("# Starting at: $sdate");
-  my $LFIL = 'large-' ~ $G ~ '-gb-file.txt';
+  my $LFIL = './data/large-' ~ $G ~ '-gb-file.txt';
 
   if !$LFIL.IO.f {
     # choose which Perl to create the missing files
@@ -120,9 +120,9 @@ for @GB -> $G {
     $p5usec = $uts;
 
     $fp.say("  #---------------------------------");
-    $fp.say("  # End read process - delta time: $pdt$ps");
+    $fp.say("  # End read process:");
     $fp.say("  #   Real time:   $rt");
-    $fp.say("  #   User time:   $ut");
+    $fp.say("  #   User time:   $ut ($p5usec s)");
     $fp.say("  #   System time: $st");
     $fp.say("  #---------------------------------");
     $fp.flush;
@@ -147,21 +147,20 @@ for @GB -> $G {
     my $pets = sprintf "%.2f", $pet;
     my $ps = " ($pets s)";
     my $pdt = delta-time($pet);
-    $pdt.=Str;
+    $pdt .= Str;
 
     # get system time (real, user, sys)
     my ($rts, $rt, $uts, $ut, $sts, $st) = read-sys-time($TFIL);
     $p6usec = $uts;
 
     $fp.say("  #---------------------------------");
-    $fp.say("  # End read process - delta time: $pdt$ps");
+    $fp.say("  # End read process:");
     $fp.say("  #   Real time:   $rt");
-    $fp.say("  #   User time:   $ut");
+    $fp.say("  #   User time:   $ut ($p6usec s)");
     $fp.say("  #   System time: $st");
     $fp.say("  #---------------------------------");
     $fp.flush;
   }
-  #my $p6tp5t = sprintf "%.1f", $p6time/$p5time;
   my $p6tp5t = sprintf "%.1f", $p6usec/$p5usec;
   $fp.say("  #---------------------------------");
   $fp.say("  # Perl 6 time / Perl 5 time: $p6tp5t");
@@ -189,15 +188,13 @@ $fp.say("====================================");
 $fp.say("$ntests test$s completed.");
 $fp.say("WARNING:  No Perl 6 tests were run.") if !$run-perl6;
 $fp.say("End time: $edate");
-$fp.say("Total elapsed time: $et sec");
-my $dt = delta-time($et);
-$dt.=Str;
-$fp.say("Delta time: $dt");
+my $stret = sprintf "%.2f", $et;
+$fp.say("Total elapsed time: $stret sec");
 $fp.say("====================================");
 
 say "Normal end.";
 say "$ntests test$s completed.";
 say "WARNING:  No Perl 6 tests were run." if !$run-perl6;
 say "End time: $edate";
-say "Total elapsed time: $et sec";
+say "Total elapsed time: $stret sec";
 say "See log file '$ofil'.";

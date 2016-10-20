@@ -1,11 +1,5 @@
 #!/usr/bin/env perl6
 
-# notes:
-#   a run on juvat2 (2016-01-31) with 10 Gb input file was 22m25s
-#   a run on bigtom (2016-01-31) with 10 Gb input file was 23m11s
-#   the time for 'wc' on juvat2 was 1m57s
-#   the time for 'wc' on bigtom was 1m30s
-
 my $prog = $*PROGRAM.basename;
 if !@*ARGS.elems {
   say qq:to/END/;
@@ -30,7 +24,7 @@ die "FATAL: file '$ifil' not found.\n"
 my $fsiz = $ifil.IO.s;
 
 my $method = shift @*ARGS;
-$method = 'lines' if !$method;
+$method = 'lines' if !$method.defined;
 if $method ~~ /^li/ {
   $method = 'IO.lines';
 }
@@ -52,7 +46,6 @@ my $nchars = 0;
 if $method ~~ /lines/ {
 
   my $fp = open $ifil, :r :enc('ascii');
-  #for $ifil.IO.lines -> $line {
   for $fp.lines -> $line {
     ++$nlines;
     $nchars += $line.chars;
