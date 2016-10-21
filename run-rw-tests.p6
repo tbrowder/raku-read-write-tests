@@ -1,7 +1,6 @@
 #!/usr/bin/env perl6
 
 use lib '.';
-
 use RW-TEST;
 
 # test file sizes:

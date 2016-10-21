@@ -13,6 +13,13 @@ This test suite was developed to monitor the progress of Perl 6 versus Perl 5 in
 the gap of processing an ASCII file of many lines.  The test files are of varying
 numbers of lines, each line consisting of 100 characters, including the ending newline.
 
+## Running the test
+
+1. Edit file `run-rw-tests.p6` to set the value of array `@GB` to the
+   number and size of tests to run (.
+2. Exexute file `run-rw-tests.p6`.  A log will be generated and placed in the `logs`
+   subdirectory (which will be created if it doesn't exist).
+
 ## Results of recent file read tests
 
 | Date       | Rakudo Version      | File Size (lines) | Perl 5 RT | Perl 6 RT | P6/P5 |
