@@ -1,22 +1,22 @@
 use v6;
 use Test;
+use RW-TEST;
 
 plan 1;
 
 # test file sizes:
 my $G = 1;
 my $LFIL = './data/large-' ~ $G ~ '-gb-file.txt';
-my $mode = 'test';
 
 # use the system 'time' function to collect process time
 my $TFIL = '.systime'; # will be overwritten upon each 'time' call
 my $TCMD = "time -p -o $TFIL";
 
 # commands for the various tests
-my $P5R = '../bin/read-file-test.pl';
-my $P5W = '../bin/create-large-file.pl';
-my $P6R = '../bin/read-file-test.p6';
-my $P6W = '../bin/create-large-file.p6';
+my $P5R = './bin/read-file-test.pl';
+my $P5W = './bin/create-large-file.pl';
+my $P6R = './bin/read-file-test.p6';
+my $P6W = './bin/create-large-file.p6';
 
 my ($proc, $s);
 if !$LFIL.IO.f {
@@ -52,7 +52,6 @@ my ($p5time, $p6time, $p5usec, $p6usec);
 
 my $p6tp5t = sprintf "%.1f", $p6usec/$p5usec;
 
-# if we are in the 'test' mode all we care about
 # is the perl6/perl5 user ratio
 # THE TEST
-is $p6tp5t < 30;
+ok $p6tp5t < 30;
