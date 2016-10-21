@@ -24,7 +24,7 @@ if !$LFIL.IO.f {
   my $wver = 5;
   #my $wver = 6;
   my $wexe = $wver == 5 ?? $P5W !! $P6W;
-  my $proc = shell "$TCMD $wexe $G", :out;
+  my $proc = shell "$TCMD $wexe $S", :out;
   $s  = $proc.out.slurp-rest;
   $s .= chomp;
 }
