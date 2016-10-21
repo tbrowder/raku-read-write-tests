@@ -5,4 +5,4 @@ perl6:
 install:
     - rakudobrew build-panda
     - panda install zef
-    - zef test .
+    - zef --debug test .
