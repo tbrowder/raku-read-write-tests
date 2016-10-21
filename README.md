@@ -1,7 +1,7 @@
 # Perl 6 Read/Write Tests
 
 [![Build Status](https://travis-ci.org/tbrowder/p6-read-write-tests.svg?branch=master)]
-  (https://travis-ci.org/tbrowder/p6-read-write-tests)
+  (https://travis-ci.org/tbrowder/p6-read-write-tests)]
 
 Perl 6 is **very** slow compared to Perl 5 reading text files line by line.
 Such line processing is a staple of data processing in use cases such as
@@ -16,7 +16,7 @@ numbers of lines, each line consisting of 100 characters, including the ending n
 ## Running the test
 
 1. Edit file `run-rw-tests.p6` to set the value of array `@GB` to the
-   number and size of tests to run (.
+   number and size of tests to run.
 2. Exexute file `run-rw-tests.p6`.  A log will be generated and placed in the `logs`
    subdirectory (which will be created if it doesn't exist).
 
