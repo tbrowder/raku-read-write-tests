@@ -9,7 +9,7 @@ my $S = 1;
 my $LFIL = './data/large-' ~ $S ~ '-Mb-file.txt';
 
 # use the system 'time' function to collect process time
-my $TFIL = '.systime'; # will be overwritten upon each 'time' call
+my $TFIL = './.systime'; # will be overwritten upon each 'time' call
 my $TCMD = "time -p -o $TFIL";
 
 # commands for the various tests
@@ -22,9 +22,8 @@ my ($proc, $s);
 if !$LFIL.IO.f {
   # choose which Perl to create the missing files
   my $wver = 5;
-  #my $wver = 6;
   my $wexe = $wver == 5 ?? $P5W !! $P6W;
-  my $proc = shell "$TCMD $wexe $S", :out;
+  $proc = shell "$TCMD $wexe $S", :out;
   $s  = $proc.out.slurp-rest;
   $s .= chomp;
 }
