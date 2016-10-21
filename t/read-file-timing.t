@@ -5,8 +5,8 @@ use RW-TEST;
 plan 1;
 
 # test file sizes:
-my $G = 1;
-my $LFIL = './data/large-' ~ $G ~ '-gb-file.txt';
+my $S = 1;
+my $LFIL = './data/large-' ~ $S ~ '-Mb-file.txt';
 
 # use the system 'time' function to collect process time
 my $TFIL = '.systime'; # will be overwritten upon each 'time' call
