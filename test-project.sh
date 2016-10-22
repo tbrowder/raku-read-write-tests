@@ -2,7 +2,7 @@
 
 PERL6=perl6
 TESTS=t/*.t
-LIBPATH=.
+LIBPATH=lib
 
 for t in $TESTS
 do
