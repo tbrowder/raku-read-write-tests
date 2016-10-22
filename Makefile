@@ -1,5 +1,5 @@
 PERL6     := perl6
-LIBPATH   := .
+LIBPATH   := lib
 
 # set below to 1 for no effect, 1 for debugging messages
 DEBUG := PERL6_RW_TESTS_DEBUG=0
