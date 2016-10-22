@@ -50,7 +50,7 @@ my ($p5time, $p6time, $p5usec, $p6usec);
 }
 
 my $p6tp5t = sprintf "%.1f", $p6usec/$p5usec;
-
+say "p6/p5 ratio: $p6tp5t";
 # is the perl6/perl5 user ratio
 # THE TEST
 ok $p6tp5t < 30;
