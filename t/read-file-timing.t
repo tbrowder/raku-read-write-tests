@@ -37,6 +37,7 @@ my ($p5time, $p6time, $p5usec, $p6usec);
   # get system time (real, user, sys)
   my ($rts, $rt, $uts, $ut, $sts, $st) = read-sys-time($TFIL);
   $p5usec = $uts;
+  say "p5usec: $p5usec";
 }
 
 {
@@ -47,6 +48,7 @@ my ($p5time, $p6time, $p5usec, $p6usec);
   # get system time (real, user, sys)
   my ($rts, $rt, $uts, $ut, $sts, $st) = read-sys-time($TFIL);
   $p6usec = $uts;
+  say "p6usec: $p6usec";
 }
 
 my $p6tp5t = sprintf "%.1f", $p6usec/$p5usec;
