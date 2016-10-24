@@ -22,7 +22,7 @@ of 100 characters, including the ending newline.
    will be interpreted accordingly.
 
 2. Edit file `run-rw-tests.p6` to set the variable `$ntrials` for
-   number of trials desired for each size file
+   the number of trials desired for each size file
 
 3. Exexute file `run-rw-tests.p6`.  A log will be generated and placed
    in the `logs` subdirectories (which will be created if they don't
