@@ -1,9 +1,10 @@
 #!/usr/bin/env perl6
 
-my $prog = $*PROGRAM.basename;
+my $debug = False;
+
 if !@*ARGS.elems {
   say qq:to/END/;
-  Usage: $prog <input file> [lines | split | slurp | getline]
+  Usage: $*PROGRAM.basename <input file> [lines | split | slurp | getline]
 
   Options:
     lines   - uses 'IO.lines' (default)
@@ -38,8 +39,10 @@ elsif $method ~~ /^ge/ {
   $method = 'GNU libc getline';
 }
 
-say "  Method: $method";
-say "  File '$ifil' size: $fsiz bytes";
+if $debug {
+    say "  Method: $method";
+    say "  File '$ifil' size: $fsiz bytes";
+}
 
 my $nlines = 0;
 my $nchars = 0;
@@ -108,7 +111,9 @@ elsif $method ~~ /getline/ {
   $nchars += $nlines;
 }
 
+=begin pod
 say "  Normal end.";
 say "  For input file '$ifil':";
 say "    Number lines: $nlines";
 say "    Number chars: $nchars";
+=end pod

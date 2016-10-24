@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-# notes: 
+# notes:
 #   a run on juvat2 (2016-01-31) with 10 Gb was ~2 minutes
 #   a run on bigtom (2016-01-31) with 10 Gb was 1m37s
 
@@ -17,8 +17,7 @@ my $use_gb = 0;
 
 my $prog = basename($0);
 if (!@ARGV) {
-  say "Usage: $prog <file size in Mb (an integer > 0)> [g]\n";
-  say "  Add a 'g' or 'G' as a second arg for gigabytes.";
+  say "Usage: $prog <file size (int > 0)> <modifier: 'G' or 'M'> [output dir]\n";
   exit;
 }
 
@@ -31,7 +30,19 @@ die "FATAL: '$siz' is not positive.\n"
   if $siz < 1;
 
 my $arg2 = shift @ARGV;
-$use_gb = 1 if (defined $arg2 && $arg2 =~ /^g/i);
+die "FATAL:  Size modifier (G or M) not entered" if !defined $arg2;
+if ($arg2 =~ /^g$/i) {
+    $use_gb = 1;
+}
+elsif ($arg2 =~ /^m$/i) {
+    $use_gb = 0;
+}
+else {
+    die "FATAL: Unknown size modifier '$arg2'";
+}
+
+my $odir = shift @ARGV;
+$odir = '.' if !defined $odir;
 
 my ($mul, $txt);
 if ($use_gb) {
@@ -42,7 +53,7 @@ else {
   $txt = 'Mb';
   $mul = $Mb;
 }
-my $ofil = "large-${siz}-${txt}-file.txt";
+my $ofil = "${odir}/large-${siz}-${txt}-file.txt";
 
 # how many lines (iterations) needed?
 my $slen   = length $str;

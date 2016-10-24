@@ -10,6 +10,8 @@ use v5.14; # 'say'
 
 use autodie;
 
+my $debug = 0;
+
 if (!@ARGV) {
   print <<"HERE";
 Usage: $0 <input file>
@@ -25,7 +27,7 @@ die "FATAL: file '$ifil' not found.\n"
 
 my $fsiz = -s $ifil;
 
-say "  File '$ifil' size: $fsiz bytes";
+say "  File '$ifil' size: $fsiz bytes" if $debug;
 
 open my $fp, '<', $ifil;
 
@@ -40,7 +42,9 @@ while (defined(my $line = <$fp>)) {
 # adjust for newlines being removed
 $nchars += $nlines;
 
-say "  Normal end.";
-say "  For input file '$ifil':";
-say "    Number lines: $nlines";
-say "    Number chars: $nchars";
+if ($debug) {
+    say "  Normal end.";
+    say "  For input file '$ifil':";
+    say "    Number lines: $nlines";
+    say "    Number chars: $nchars";
+}

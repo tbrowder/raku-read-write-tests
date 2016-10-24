@@ -22,13 +22,16 @@ numbers of lines, each line consisting of 100 characters, including the ending n
 
 ## Results of recent file read tests
 
-| Date       | Rakudo Version      | File Size (lines) | Perl 5 RT | Perl 6 RT | P6/P5 |
-| ---        | ---                 | ---:              | ---:      | ---:      | ---:  |
-| 2016-10-18 | 2016.10-16-geb6907e |      1_000_000    |    1.39 s |   12.61 s | 25.2  |
-| 2016-10-18 | 2016.10-16-geb6907e |  6_000_000_000    |   75.47 s |  737.63 s | 18.2  |
-| 2016-10-18 | 2016.10-16-geb6907e | 10_000_000_000    |  121.33 s | 1233.29 s | 25.1  |
+| Date       | Rakudo Version      | File Size (lines) | Trials | Perl 5 RT  | Perl 6 RT  | P6 RT / P5 RT |
+| ---        | ---                 | ---:              | ---:   | ---:       | ---:       | ---:  |
+| 2016-10-23 | 2016.10-16-geb6907e |            10,000 |    1   |     0.02 s |     0.61 s |  30.5 |
+| 2016-10-23 | 2016.10-16-geb6907e |            20,000 |    1   |     0.03 s |     0.75 s |  25.0 |
+| 2016-10-23 | 2016.10-16-geb6907e |            30,000 |    1   |     0.03 s |     0.82 s |  27.3 |
+| 2016-10-23 | 2016.10-16-geb6907e |            40,000 |    1   |     0.04 s |     0.96 s |  24.0 |
+| 2016-10-23 | 2016.10-16-geb6907e |            50,000 |    1   |     0.05 s |     1.07 s |  21.4 |
 
 Notes:
 
-1. See the complete results in log files in the **logs** subdirectory.
+1. See the complete results in log files in the **logs** subdirectories.
 2. **RT** - run time
+3. When the number of trials is > 1, the RT data are averages over that number.

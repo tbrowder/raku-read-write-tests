@@ -6,16 +6,15 @@
 my $str = "012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678\n";
 my $Gb  = 1_000_000_000;
 my $Mb  = 1_000_000;
-my $use_gb = 0;
+my $use_gb = False;
 
 my $prog = $*PROGRAM.basename;
-if !@*ARGS.elems {
-  say qq:to/END/;
-  Usage: $prog <file size in Mb (an integer > 0)> [g]]
+if @*ARGS.elems < 2 {
+    say qq:to/END/;
+    Usage: $prog <file size (int > 0)> <modifier: 'G' or 'M'> [output dir]
 
-    Add a 'g' or 'G' as a second arg for gigabytes.
-  END
-  exit;
+END
+exit;
 }
 
 # desired size in Mb or Gb
@@ -29,7 +28,19 @@ die "FATAL: '$siz' is not positive.\n"
   if $siz < 1;
 
 my $arg2 = shift @*ARGS;
-$use_gb = 1 if $arg2 && $arg2 ~~ m:i/^g/;
+die "FATAL:  Size modifier (G or M) not entered" if not $arg2.defined;
+if $arg2 ~~ m:i/^g$/ {
+    $use_gb = True;
+}
+elsif $arg2 ~~ m:i/^m$/ {
+    $use_gb = True;
+}
+else {
+    die "FATAL:  Unknown size modifier '$arg2'";
+}
+
+my $odir = shift @ARGV;
+$odir = '.' if not $odir.defined;
 
 my ($mul, $txt);
 if $use_gb {
@@ -40,7 +51,7 @@ else {
   $txt = 'Mb';
   $mul = $Mb;
 }
-my $ofil = "large-{$siz}-{$txt}-file.txt";
+my $ofil = "{$odir}/large-{$siz}-{$txt}-file.txt";
 
 # how many (lines) iterations needed?
 my $slen   = $str.chars;
