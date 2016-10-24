@@ -40,5 +40,5 @@ of 100 characters, including the ending newline.
 Notes:
 
 1. See the complete results in log files in the **logs** subdirectories.
-2. **RT** - run time
+2. **RT** - Run Time: user time from the GNU `time` program.
 3. When the number of trials is > 1, the RT data are averages over that number.
