@@ -8,6 +8,8 @@ us Getopt::Std for Perl 5 progs
 
 make more robust to system failures, especially for proc calls
 
+implement the NativeCall readline option
+
 ==============================================================
 DONE:
 ==============================================================
