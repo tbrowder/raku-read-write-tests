@@ -6,11 +6,12 @@ use RW-TEST;
 
 # test file sizes:
 my @S;
-@S = <1m 1g 5g 10g>;
+#@S = <1m 1g 5g 10g>;
 #@S = <1m>;
 #@S = <1g>;
 #@S = <1m 2 3 4 5>;
 #@S = <1m 100>;
+@S = <1m 2 3 4 5>;
 
 my $ntrials = 1; # number of times to run each file test and average it
 
@@ -158,7 +159,7 @@ for @S -> $S is copy {
 	    my ($rts, $rt, $uts, $ut, $sts, $st) = time-command("$P6R $LFIL");
 	    $p6usec = sprintf "%.2f", $uts;
 
-	    $p6usec-total += $p5usec;
+	    $p6usec-total += $p6usec;
 
 	    $fp.say("  #---------------------------------");
 	    $fp.say("  # End read process:");
