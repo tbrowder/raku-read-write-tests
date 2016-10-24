@@ -1,5 +1,8 @@
-add averaging capability for multiple runs of the same file size
-
 us Getopt::Std for Perl 6 progs
 
 us Getopt::Std for Perl 5 progs
+
+make more robust to system failures, especially for proc calls
+
+add averaging capability for multiple runs of the same file size
+(DONE)
