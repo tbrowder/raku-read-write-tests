@@ -2,6 +2,8 @@
 
 use lib 'lib';
 use Getopt::Std;
+use Misc::Utils :ALL;
+
 use RW-TEST;
 
 # test file sizes:
