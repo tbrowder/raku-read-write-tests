@@ -2,7 +2,7 @@
 
 use lib 'lib';
 use Getopt::Std;
-use Misc::Utils :ALL;
+use Misc::Utils :commify;
 
 use RW-TEST;
 
