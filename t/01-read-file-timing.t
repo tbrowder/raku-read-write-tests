@@ -1,6 +1,7 @@
 use v6;
 use Test;
 use lib <lib ../lib>;
+use Misc::Utils :time-command;
 use RW-TEST;
 
 plan 1;
@@ -15,7 +16,7 @@ my $P6R = './bin/read-file-test.p6';
 
 if !$LFIL.IO.f {
     my $proc = shell "$P5W $LFIL";
-} 
+}
 
 say "reading file '$LFIL' with Perl 5...";
 my $p5usec = time-command("$P5R $LFIL", :uts(True));
