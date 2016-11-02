@@ -1,10 +1,12 @@
 ==============================================================
 TO DO:
-==============================================================
+==============================================================u
 
-us Getopt::Std for Perl 6 progs
+add info for the creation of text files
 
-us Getopt::Std for Perl 5 progs
+use Getopt::Std for Perl 6 progs
+
+use Getopt::Std for Perl 5 progs
 
 make more robust to system failures, especially for proc calls
 
