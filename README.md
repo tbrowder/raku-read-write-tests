@@ -31,7 +31,7 @@ of 100 characters, including the ending newline.
 ## Results of recent file read tests
 
 | Date       | Rakudo Version      | File Size (lines) | Trials | Perl 5 RT  | Perl 6 RT  | P6 RT / P5 RT |
-| ---        | ---                 | ---:              | : ---: | ---:       | ---:       | :---: |
+| ---        | ---                 | ---:              | :---:  | ---:       | ---:       | :---: |
 | 2016-10-23 | 2016.10-16-geb6907e |            10,000 |    1   |     0.02 s |     0.73 s |  36.5 |
 | 2016-10-23 | 2016.10-16-geb6907e |        10,000,000 |    1   |     2.74 s |    72.31 s |  26.4 |
 | 2016-10-23 | 2016.10-16-geb6907e |        50,000,000 |    1   |    23.65 s |   582.67 s |  24.6 |
