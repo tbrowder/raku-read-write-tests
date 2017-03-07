@@ -1,8 +1,8 @@
 #!/usr/bin/env perl6
 
 use lib 'lib';
-use Getopt::Std;
-use Misc::Utils :commify;
+use Getopt::Std
+use Text::More :commify;
 
 use RW-TEST;
 
