@@ -2,7 +2,8 @@
 
 use lib 'lib';
 use Getopt::Std;
-use Misc::Utils :commify;
+use Text::More :commify;
+use Linux::Proc::Time :time-command;
 
 use RW-TEST;
 
