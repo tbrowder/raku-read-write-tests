@@ -3,6 +3,7 @@
 use lib 'lib';
 use Getopt::Std
 use Text::More :commify;
+use Linux::Proc::Time;
 
 use RW-TEST;
 
