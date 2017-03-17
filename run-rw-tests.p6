@@ -1,10 +1,10 @@
 #!/usr/bin/env perl6
 
-use lib 'lib';
 use Getopt::Std;
 use Text::More :commify;
 use Linux::Proc::Time :time-command;
 
+use lib <./lib>;
 use RW-TEST;
 
 # test file sizes:
@@ -27,10 +27,12 @@ mkdir 'logs-long' if not 'logs-long'.IO ~~ :d;
 mkdir 'logs-short' if not 'logs-short'.IO ~~ :d;
 
 # get host info
-my $proc = shell "hostname -s", :out;
+my $cmd = "hostname -s";
+my $proc = run $cmd.words, :out;
 my $HOST = $proc.out.slurp-rest;
 $HOST .= chomp;
-$proc = shell "uname -a", :out;
+$cmd = "uname -a";
+$proc = run $cmd.words, :out;
 my $HOSTINFO = $proc.out.slurp-rest;
 $HOSTINFO .= chomp;
 
@@ -116,7 +118,7 @@ for @S -> $S is copy {
 	#---------------------------------
 	END-D
 
-	my $uts = time-command("$wexe $sz $szmod ./data", :uts(True));
+	my $uts = time-command "$wexe $sz $szmod ./data", :uts(True));
     }
 
     my ($proc, $s, $p5usec, $p6usec);
@@ -131,7 +133,7 @@ for @S -> $S is copy {
 	    ++$ntests;
 
 	    # get system time (real, user, sys)
-	    my ($rts, $rt, $uts, $ut, $sts, $st) = time-command("$P5R $LFIL");
+	    my ($rts, $rt, $uts, $ut, $sts, $st) = time-command "$P5R $LFIL", :list;
 	    $p5usec = sprintf "%.2f", $uts;
 
 	    $p5usec-total += $p5usec;
@@ -159,7 +161,7 @@ for @S -> $S is copy {
 	    ++$ntests;
 
 	    # get system time (real, user, sys)
-	    my ($rts, $rt, $uts, $ut, $sts, $st) = time-command("$P6R $LFIL");
+	    my ($rts, $rt, $uts, $ut, $sts, $st) = time-command "$P6R $LFIL";
 	    $p6usec = sprintf "%.2f", $uts;
 
 	    $p6usec-total += $p6usec;
