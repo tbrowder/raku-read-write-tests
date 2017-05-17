@@ -1,0 +1,11 @@
+{
+  "name": "perl6-rw-tests",
+  "perl": "6",
+  "version": "1.0.0",
+  "description": "Test Perl 6 ASCII file read/write times",
+  "auth": "github:tbrowder",
+  "authors": [
+    "Tom Browder <tom.browder@gmail.com>"
+  ],
+  "meta6": "0"
+}
