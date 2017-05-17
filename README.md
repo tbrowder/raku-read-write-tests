@@ -22,6 +22,7 @@ of 100 characters, including the ending newline.
    test logs shown on the github site are:
 
      @S = <1m 1g 5g 10g>; # 10K, 10M, 50M, 100M lines, respectively
+
      $ntrials = 3;
 
 2. Edit file `run-rw-tests.p6` to set the variable `$ntrials` for
