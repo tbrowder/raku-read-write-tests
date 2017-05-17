@@ -1,0 +1,295 @@
+====================================
+# Start testing at: 2017-05-17  04:57:46.68
+# Test host: juvat2
+# Host info: Linux juvat2 3.16.0-4-amd64 #1 SMP Debian 3.16.43-2 (2017-04-30) x86_64 GNU/Linux
+# Perl 5 version: 5.20.2
+
+# Perl 6 version: 6.c
+# Rakudo version: 2017.04.3-275-g84502dc
+# MoarVM version: 2017.04-64-g6d5ea04
+====================================
+
+#***** Working with 1 Mb...
+# Starting at: 2017-05-17  04:57:46.69
+
+  #---------------------------------
+  # Start read process, trial 1 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Mb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m00.03s
+  #   User time:   0h00m00.02s (0.02 s)
+  #   System time: 0h00m00.00s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 2 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Mb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m00.03s
+  #   User time:   0h00m00.03s (0.03 s)
+  #   System time: 0h00m00.00s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 3 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Mb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m00.03s
+  #   User time:   0h00m00.03s (0.03 s)
+  #   System time: 0h00m00.00s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 1 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Mb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m01.62s
+  #   User time:   0h00m01.43s (1.43 s)
+  #   System time: 0h00m00.10s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 2 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Mb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m00.64s
+  #   User time:   0h00m00.58s (0.58 s)
+  #   System time: 0h00m00.05s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 3 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Mb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m00.66s
+  #   User time:   0h00m00.58s (0.58 s)
+  #   System time: 0h00m00.05s
+  #---------------------------------
+  #---------------------------------
+  # Perl 6 time / Perl 5 time: 28.7
+  #---------------------------------
+  Reading file './data/large-1-Mb-file.txt' with system wc...
+    10000   10000 1000000 ./data/large-1-Mb-file.txt
+#***** End working with 1 Mb
+#***** Working with 1 Gb...
+# Starting at: 2017-05-17  04:57:50.14
+
+  #---------------------------------
+  # Start read process, trial 1 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Gb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m02.89s
+  #   User time:   0h00m02.68s (2.68 s)
+  #   System time: 0h00m00.17s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 2 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Gb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m02.88s
+  #   User time:   0h00m02.68s (2.68 s)
+  #   System time: 0h00m00.18s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 3 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Gb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m03.06s
+  #   User time:   0h00m02.84s (2.84 s)
+  #   System time: 0h00m00.17s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 1 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Gb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m54.74s
+  #   User time:   0h00m52.48s (52.48 s)
+  #   System time: 0h00m00.26s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 2 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Gb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m52.82s
+  #   User time:   0h00m51.27s (51.27 s)
+  #   System time: 0h00m00.29s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 3 of 3...
+  #---------------------------------
+  Reading file './data/large-1-Gb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h00m53.76s
+  #   User time:   0h00m50.76s (50.76 s)
+  #   System time: 0h00m00.26s
+  #---------------------------------
+  #---------------------------------
+  # Perl 6 time / Perl 5 time: 18.9
+  #---------------------------------
+  Reading file './data/large-1-Gb-file.txt' with system wc...
+    6691740   6691740 669174000 ./data/large-1-Gb-file.txt
+#***** End working with 1 Gb
+#***** Working with 5 Gb...
+# Starting at: 2017-05-17  05:00:44.19
+
+  #---------------------------------
+  # Start read process, trial 1 of 3...
+  #---------------------------------
+  Reading file './data/large-5-Gb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h01m04.28s
+  #   User time:   0h00m28.03s (28.03 s)
+  #   System time: 0h00m02.65s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 2 of 3...
+  #---------------------------------
+  Reading file './data/large-5-Gb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h01m04.77s
+  #   User time:   0h00m26.94s (26.94 s)
+  #   System time: 0h00m02.65s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 3 of 3...
+  #---------------------------------
+  Reading file './data/large-5-Gb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h01m03.37s
+  #   User time:   0h00m27.25s (27.25 s)
+  #   System time: 0h00m02.96s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 1 of 3...
+  #---------------------------------
+  Reading file './data/large-5-Gb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h07m06.58s
+  #   User time:   0h06m51.05s (411.05 s)
+  #   System time: 0h00m03.98s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 2 of 3...
+  #---------------------------------
+  Reading file './data/large-5-Gb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h07m05.77s
+  #   User time:   0h06m48.75s (408.75 s)
+  #   System time: 0h00m03.68s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 3 of 3...
+  #---------------------------------
+  Reading file './data/large-5-Gb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h07m04.80s
+  #   User time:   0h06m50.21s (410.21 s)
+  #   System time: 0h00m03.89s
+  #---------------------------------
+  #---------------------------------
+  # Perl 6 time / Perl 5 time: 15.0
+  #---------------------------------
+  Reading file './data/large-5-Gb-file.txt' with system wc...
+    50000000   50000000 5000000000 ./data/large-5-Gb-file.txt
+#***** End working with 5 Gb
+#***** Working with 10 Gb...
+# Starting at: 2017-05-17  05:26:16.58
+
+  #---------------------------------
+  # Start read process, trial 1 of 3...
+  #---------------------------------
+  Reading file './data/large-10-Gb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h02m03.22s
+  #   User time:   0h01m02.52s (62.52 s)
+  #   System time: 0h00m05.68s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 2 of 3...
+  #---------------------------------
+  Reading file './data/large-10-Gb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h02m02.32s
+  #   User time:   0h01m08.80s (68.80 s)
+  #   System time: 0h00m06.06s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 3 of 3...
+  #---------------------------------
+  Reading file './data/large-10-Gb-file.txt' with Perl 5...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h02m03.73s
+  #   User time:   0h01m07.85s (67.85 s)
+  #   System time: 0h00m06.00s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 1 of 3...
+  #---------------------------------
+  Reading file './data/large-10-Gb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h14m45.08s
+  #   User time:   0h14m21.94s (861.94 s)
+  #   System time: 0h00m07.43s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 2 of 3...
+  #---------------------------------
+  Reading file './data/large-10-Gb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h14m41.48s
+  #   User time:   0h14m18.52s (858.52 s)
+  #   System time: 0h00m07.62s
+  #---------------------------------
+  #---------------------------------
+  # Start read process, trial 3 of 3...
+  #---------------------------------
+  Reading file './data/large-10-Gb-file.txt' with Perl 6...
+  #---------------------------------
+  # End read process:
+  #   Real time:   0h14m44.97s
+  #   User time:   0h14m21.22s (861.22 s)
+  #   System time: 0h00m07.68s
+  #---------------------------------
+  #---------------------------------
+  # Perl 6 time / Perl 5 time: 13.0
+  #---------------------------------
+  Reading file './data/large-10-Gb-file.txt' with system wc...
+    100000000   100000000 10000000000 ./data/large-10-Gb-file.txt
+#***** End working with 10 Gb
+====================================
+End testing.
+====================================
+====================================
+24 tests completed.
+End time: 2017-05-17  06:18:46.57
+Total elapsed time: 4859.89 sec (1h20m59.89s)
+====================================
