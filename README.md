@@ -1,7 +1,6 @@
 # Perl 6 Read/Write Tests
 
-[![Build Status](https://travis-ci.org/tbrowder/perl6-read-write-tests.svg?branch=master)]
-  (https://travis-ci.org/tbrowder/perl6-read-write-tests)
+[![Build Status](https://travis-ci.org/tbrowder/perl6-read-write-tests.svg?branch=master)](https://travis-ci.org/tbrowder/perl6-read-write-tests)
 
 Perl 6 is currently **very** slow compared to Perl 5 reading text files line by
 line.  Such line processing is a staple of data processing in use
