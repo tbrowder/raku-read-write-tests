@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/tbrowder/perl6-read-write-tests.svg?branch=master)]
   (https://travis-ci.org/tbrowder/perl6-read-write-tests)
 
-Perl 6 is **very** slow compared to Perl 5 reading text files line by
+Perl 6 is currently **very** slow compared to Perl 5 reading text files line by
 line.  Such line processing is a staple of data processing in use
 cases such as analyzing output of many kinds of programs.  An example
 is the category of programs known as raytracing, one of which, used
@@ -19,7 +19,11 @@ of 100 characters, including the ending newline.
 1. Edit file `run-rw-tests.p6` to set the value of array `@S` to the
    number and size of tests to run.  Note that a bare number will be
    interpreted as Megabytes and a number with an 'M' or 'G' appended
-   will be interpreted accordingly.
+   will be interpreted accordingly. The settings that generate the
+   test logs shown on the github site are:
+
+     @S = <1m 1g 5g 10g>; # 10K, 10M, 50M, 100M lines, respectively
+     $ntrials = 3;
 
 2. Edit file `run-rw-tests.p6` to set the variable `$ntrials` for
    the number of trials desired for each size file

@@ -1,6 +1,6 @@
 PERL6     := perl6
 # note LIBPATH uses normal PERL6LIB Perl 6 separators (',')
-LIBPATH   := lib,../Misc-Utils-Perl6/lib
+LIBPATH   := ${PERL6LIB},lib
 
 # set below to 1 for no effect, 1 for debugging messages
 DEBUG := PERL6_RW_TESTS_DEBUG=0

@@ -1,7 +1,7 @@
 use v6;
 use Test;
 use lib <lib ../lib>;
-use Misc::Utils :time-command;
+use Proc::More :time-command;
 use RW-TEST;
 
 plan 1;
@@ -19,11 +19,11 @@ if !$LFIL.IO.f {
 }
 
 say "reading file '$LFIL' with Perl 5...";
-my $p5usec = time-command("$P5R $LFIL", :uts(True));
+my $p5usec = time-command("$P5R $LFIL");
 say "Perl 5 read time $p5usec";
 
 say "reading file '$LFIL' with Perl 6...";
-my $p6usec = time-command("$P6R $LFIL", :uts(True));
+my $p6usec = time-command("$P6R $LFIL");
 say "Perl 6 read time $p6usec";
 
 my $p6tp5t = sprintf "%.1f", $p6usec/$p5usec;

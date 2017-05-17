@@ -2,21 +2,25 @@
 
 use Getopt::Std;
 use Text::More :commify;
-use Linux::Proc::Time :time-command;
+
+# the following module is not in the ecosystem yet but is available
+# at: github.com/tbrowder/Proc-More-Perl6.git:
+use Proc::More :time-command, :seconds-to-hms;
 
 use lib <./lib>;
 use RW-TEST;
 
 # test file sizes:
 my @S;
-#@S = <1m 1g 5g 10g>;
+#@S = <1m 1g 5g 10g>; # 10K, 10M, 50M, 100M lines, respectively
 #@S = <1m>;
 #@S = <1g>;
 #@S = <1m 2 3 4 5>;
 #@S = <1m 100>;
-@S = <1m 2 3 4 5>;
+#@S = <1m 2 3 4 5>;
+@S = <1m 1g 5g 10g>; # for publishing, yields (in numbers of lines): 10K, 10M, 50M, 100M
 
-my $ntrials = 1; # number of times to run each file test and average it
+my $ntrials = 3; # number of times to run each file test and average it
 
 my $run-perl6 = True;
 #my $run-perl6 = False; # for speedy testing of this file
@@ -118,7 +122,7 @@ for @S -> $S is copy {
 	#---------------------------------
 	END-D
 
-	my $uts = time-command "$wexe $sz $szmod ./data", :uts(True));
+	my $uts = time-command "$wexe $sz $szmod ./data", :uts(True); # original Linux::Proc::Time [now it's the default]
     }
 
     my ($proc, $s, $p5usec, $p6usec);
@@ -133,7 +137,7 @@ for @S -> $S is copy {
 	    ++$ntests;
 
 	    # get system time (real, user, sys)
-	    my ($rts, $rt, $uts, $ut, $sts, $st) = time-command "$P5R $LFIL", :list;
+	    my ($rts, $rt, $uts, $ut, $sts, $st) = time-command "$P5R $LFIL", :list(True); # good format old and new
 	    $p5usec = sprintf "%.2f", $uts;
 
 	    $p5usec-total += $p5usec;
@@ -161,7 +165,7 @@ for @S -> $S is copy {
 	    ++$ntests;
 
 	    # get system time (real, user, sys)
-	    my ($rts, $rt, $uts, $ut, $sts, $st) = time-command "$P6R $LFIL";
+	    my ($rts, $rt, $uts, $ut, $sts, $st) = time-command "$P6R $LFIL", :list(True); # good format old and new
 	    $p6usec = sprintf "%.2f", $uts;
 
 	    $p6usec-total += $p6usec;
@@ -212,19 +216,20 @@ my $edate = my-date-time;
 $s = $ntests > 1 ?? 's' !! '';
 
 my $stret = sprintf "%.2f", $et;
+my $shms = seconds-to-hms $stret, :fmt<h>;
 
 $fp.say("====================================");
 $fp.say("$ntests test$s completed.");
 $fp.say("WARNING:  No Perl 6 tests were run.") if !$run-perl6;
 $fp.say("End time: $edate");
-$fp.say("Total elapsed time: $stret sec");
+$fp.say("Total elapsed time: $stret sec ($shms)");
 $fp.say("====================================");
 
 say "Normal end.";
 say "$ntests test$s completed.";
 say "WARNING:  No Perl 6 tests were run." if !$run-perl6;
 say "End time: $edate";
-say "Total elapsed time: $stret sec";
+say "Total elapsed time: $stret sec ($shms)";
 say qq:to/END-F/;
 "See log files:
     '$ofil-long'
