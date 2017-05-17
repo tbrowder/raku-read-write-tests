@@ -1,9 +1,12 @@
-sudo: true
+# version for 'time'
+sudo: false
 language: perl6
 perl6:
     - latest
+
 install:
-    - rakudobrew build-panda
-    - panda install File::Temp
-    - panda install Getopt::Std
-    - ./test-project.sh
+    - rakudobrew build-zef
+    # the following command avoids double-testing of the target module:
+    - git clone https://github.com/tbrowder/Proc-More-Perl6.git 
+    - zef install ./Proc-More-Perl6
+    - zef install --depsonly .
