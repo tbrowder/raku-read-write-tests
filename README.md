@@ -34,6 +34,8 @@ of 100 characters, including the ending newline.
 
 ## Results of recent file read tests
 
+### Before latest IO improvements
+
 | Date       | Rakudo Version         | File Sz (lines) | Trials | Perl 5 RT  | Perl 6 RT  | P6 RT / P5 RT |
 | ---        | ---                    | ---:            | :---:  | ---:       | ---:       | :---: |
 | 2017-05-17 | 2017.04.3-275-g84502dc |          10,000 |    3   |     0.03 s |     0.86 s |  28.7 |
@@ -41,6 +43,7 @@ of 100 characters, including the ending newline.
 | 2017-05-17 | 2017.04.3-275-g84502dc |      50,000,000 |    3   |    27.41 s |   410.00 s |  15.0 |
 | 2017-05-17 | 2017.04.3-275-g84502dc |     100,000,000 |    3   |    66.39 s |   860.56 s |  13.0 |
 
+### After latest IO improvements
 
 | Date       | Rakudo Version         | File Sz (lines) | Trials | Perl 5 RT  | Perl 6 RT  | P6 RT / P5 RT | Improvement
 | ---        | ---                    | ---:            | :---:  | ---:       | ---:       | :---: | :--: |
@@ -48,7 +51,6 @@ of 100 characters, including the ending newline.
 | 2017-06-29 | 2017.06-45-g86e7b2b |        10,000,000 |    3   |     2.67 s |    32.27 s |  12.1 | 36.0% |
 | 2017-06-29 | 2017.06-45-g86e7b2b |        50,000,000 |    3   |    24.37 s |   276.41 s |  11.3 | 24.7% |
 | 2017-06-29 | 2017.06-45-g86e7b2b |       100,000,000 |    3   |    55.40 s |   582.37 s |  10.5 | 19.2%|
-
 
 Notes:
 
