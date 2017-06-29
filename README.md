@@ -58,7 +58,7 @@ Notes:
 
 2. **RT** - Run Time: user time from the GNU `time` program.
 
-3. **Improvement - (prev P6/P5 ratio / curr P6/P6 ratio)/(prev P6/P5 ratio)
+3. **Improvement** - (prev P6/P5 ratio / curr P6/P6 ratio)/(prev P6/P5 ratio)
 
 4. When the number of trials is > 1, the RT data are averages over that number.
 
