@@ -48,7 +48,8 @@ my $nlines = 0;
 my $nchars = 0;
 if $method ~~ /lines/ {
 
-  my $fp = open $ifil, :r :enc('ascii');
+  #my $fp = open $ifil, :r :enc('ascii');
+  my $fp = open $ifil, :r;
   for $fp.lines -> $line {
     ++$nlines;
     $nchars += $line.chars;

@@ -7,7 +7,7 @@
 #   the time for 'wc' on bigtom was 1m30s
 
 use v5.14; # 'say'
-
+use open IO => ':endoding(UTF-8)';
 use autodie;
 
 my $debug = 0;
@@ -29,6 +29,7 @@ my $fsiz = -s $ifil;
 
 say "  File '$ifil' size: $fsiz bytes" if $debug;
 
+# need to read with utf8 same as Perl 6
 open my $fp, '<', $ifil;
 
 my $nlines = 0;
