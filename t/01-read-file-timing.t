@@ -10,9 +10,9 @@ plan 1;
 my $LFIL = './data/large-1-Mb-file.txt';
 
 # commands for the various tests
-my $P5R = './bin/read-file-test.pl';
+my $P5R = './bin/read-file-test-utf8.pl';
 my $P5W = './bin/create-large-file.pl';
-my $P6R = './bin/read-file-test.p6';
+my $P6R = './bin/read-file-test-utf8.p6';
 
 if !$LFIL.IO.f {
     my $proc = shell "$P5W $LFIL";
