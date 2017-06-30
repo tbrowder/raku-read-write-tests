@@ -46,6 +46,20 @@ if $debug {
 
 my $nlines = 0;
 my $nchars = 0;
+
+# use lines method
+
+#my $fp = open $ifil, :r :enc('ascii');
+my $fp = open $ifil, :r;
+for $fp.lines -> $line {
+    ++$nlines;
+    $nchars += $line.chars;
+    #say "line: '$line'";
+}
+# adjust for newlines being removed
+$nchars += $nlines;
+
+=begin comment
 if $method ~~ /lines/ {
 
   #my $fp = open $ifil, :r :enc('ascii');
@@ -111,6 +125,7 @@ elsif $method ~~ /getline/ {
   # adjust for newlines being removed
   $nchars += $nlines;
 }
+=end comment
 
 =begin pod
 say "  Normal end.";
