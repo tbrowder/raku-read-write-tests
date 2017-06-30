@@ -2,7 +2,7 @@
 sudo: true
 language: perl6
 perl6:
-    - latest
+    - 2017.06
 
 before_install:
     - sudo apt-get -qq update
