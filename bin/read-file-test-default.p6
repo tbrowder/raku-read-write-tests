@@ -28,8 +28,7 @@ say "  File '$ifil' size: $fsiz bytes" if $debug;
 
 my $nlines = 0;
 my $nchars = 0;
-my $fh = open $ifil, :enc<ascii>;
-for $fh.lines -> $line {
+for $ifil.IO.lines -> $line {
     ++$nlines;
     $nchars += $line.chars;
 }

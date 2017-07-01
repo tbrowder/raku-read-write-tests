@@ -8,6 +8,8 @@ use v5.14; # 'say'
 
 use File::Basename;
 
+die FATAL: make this create a utf8 string like the Perl 6 version";
+
 # 100 char string (counting the ending newline)
 my $str = "012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678\n";
 my $Gb  = 1_000_000_000;
@@ -43,6 +45,7 @@ else {
 my $odir = shift @ARGV;
 $odir = '.' if !defined $odir;
 
+my $typ = 'utf8';
 my ($mul, $txt);
 if ($use_gb) {
   $txt = 'Gb';
@@ -52,7 +55,7 @@ else {
   $txt = 'Mb';
   $mul = $Mb;
 }
-my $ofil = "${odir}/large-${siz}-${txt}-file.txt";
+my $ofil = "${odir}/large-${siz}-${txt}-${typ}-file.txt";
 
 # how many lines (iterations) needed?
 my $slen   = length $str;

@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 
 use v5.14; # 'say'
-use open IO => ':endoding(UTF-8)';
 
 my $debug = 0;
 
@@ -24,20 +23,20 @@ say "  File '$ifil' size: $fsiz bytes" if $debug;
 
 # need to read with utf8 same as Perl 6
 open my $fp, '<', $ifil
-    or die "file: '$ofil': $!";
+    or die "file: '$ifil': $!";
 
-#my $nlines = 0;
-#my $nchars = 0;
+my $nlines = 0;
+my $nchars = 0;
 while (defined(my $line = <$fp>)) {
   #chomp $line;
-  #++$nlines;
-  #$nchars += length $line;
+  ++$nlines;
+  $nchars += length $line;
 }
 
-# adjust for newlines being removed
-$nchars += $nlines;
 
 if ($debug) {
+    # adjust for newlines being removed
+    $nchars += $nlines;
     say "  Normal end.";
     say "  For input file '$ifil':";
     say "    Number lines: $nlines";
