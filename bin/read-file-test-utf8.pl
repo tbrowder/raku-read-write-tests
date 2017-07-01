@@ -1,8 +1,6 @@
 #!/usr/bin/env perl
 
 use v5.14; # 'say'
-# need to read with utf8 same as Perl 6
-use open IO => ':endoding(UTF-8)';
 
 my $debug = 0;
 
@@ -23,7 +21,8 @@ my $fsiz = -s $ifil;
 
 say "  File '$ifil' size: $fsiz bytes" if $debug;
 
-open my $fp, '<', $ifil
+# need to read with utf8 same as Perl 6
+open my $fp, '<:encoding(UTF-8)', $ifil
     or die "file: '$ifil': $!";
 
 my $nlines = 0;
