@@ -6,7 +6,6 @@
 
 use v5.14; # 'say'
 
-use autodie;
 use File::Basename;
 
 # 100 char string (counting the ending newline)
@@ -63,7 +62,8 @@ say "Requested file size: $siz $txt";
 say "String size:  $slen";
 say "Number lines: $nlines";
 
-open my $fp, '>', $ofil;
+open my $fp, '>', $ofil
+    or die "file '$ofil': $!";
 
 for (1 .. $nlines) {
   print $fp $str;

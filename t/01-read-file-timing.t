@@ -15,6 +15,7 @@ my $P5W = './bin/create-large-file.pl';
 my $P6R = './bin/read-file-test-utf8.p6';
 
 if !$LFIL.IO.f {
+    mkdir 'data';
     my $proc = shell "$P5W $LFIL";
 }
 
