@@ -17,11 +17,11 @@ of 100 bytes, including the ending newline.
 
 The tests currently compare Perl 6 versus Perl 5 under the following conditions:
 
-+ reading UTF-8 files (Perl 5 using the '<:encoding(UTF-8)' form of open)
++ reading UTF-8 files (Perl 6 native read, Perl 5 using the '<:encoding(UTF-8)' form of open)
 
 + reading ASCII files (native read with both Perl versions)
 
-+ reading ASCII files (Perl 6 using the ':enc<ascii>' form of open)
++ reading ASCII files (Perl 6 using the ':enc<ascii>' form of open, Perl 5 native read)
 
 ## Running the tests
 
@@ -54,12 +54,12 @@ The tests currently compare Perl 6 versus Perl 5 under the following conditions:
 
 + Perl 5 version: 5.20.2
 
-| File Sz (lines) | Trials | Perl 5 T  | Perl 6 T  | P6T / P5T |
-| ---:            | :---:  | ---:       | ---:       | :---: |
-|          10,000 |    3   |     0.03 s |     0.86 s |  28.7 |
-|      10,000,000 |    3   |     2.73 s |    51.50 s |  18.9 |
-|      50,000,000 |    3   |    27.41 s |   410.00 s |  15.0 |
-|     100,000,000 |    3   |    66.39 s |   860.56 s |  13.0 |
+| Size   | Number lines | Trials | Perl 5 T | Perl 6 T | P6T / P5T |
+| ---:   | ---:         | :---:  | ---:     | ---:     | :---:     |
+| 100 Mb |       10,000 |    3   |   0.03 s |   0.86 s |  28.7     |
+|   1 Gb |   10,000,000 |    3   |   2.73 s |  51.50 s |  18.9     |
+|   5 Gb |   50,000,000 |    3   |  27.41 s | 410.00 s |  15.0     |
+|  10 Gb |  100,000,000 |    3   |  66.39 s | 860.56 s |  13.0     |
 
 ### After latest IO improvements
 
