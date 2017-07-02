@@ -46,10 +46,13 @@ The tests currently compare Perl 6 versus Perl 5 under the following conditions:
 
 ### Before latest IO improvements
 
-Date: 2017-05-17
-File type: ASCII
-Rakudo version: 2017.04.3-275-g84502dc
-Perl 5 version: 
++ Date: 2017-05-17
+
++ File type: ASCII
+
++ Rakudo version: 2017.04.3-275-g84502dc
+
++ Perl 5 version: 5.20.2
 
 | File Sz (lines) | Trials | Perl 5 T  | Perl 6 T  | P6T / P5T |
 | ---:            | :---:  | ---:       | ---:       | :---: |
@@ -60,10 +63,13 @@ Perl 5 version:
 
 ### After latest IO improvements
 
-Date: 2017-06-29
-File type: ASCII
-Rakudo version: 2017.06-45-g86e7b2b 
-Perl 5 version: 
++ Date: 2017-06-29
+
++ File type: ASCII
+
++ Rakudo version: 2017.06-45-g86e7b2b 
+
++ Perl 5 version: 5.20.2
 
 | File Sz (lines) | Trials | Perl 5 T  | Perl 6 T  | P6T / P5T | Improvement
 | ---:            | :---:  | ---:       | ---:       | :---: | :--: |
