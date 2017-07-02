@@ -4,9 +4,9 @@ unit module RW-TEST;
 #my $debug = True;
 my $debug = False;
 
-sub get-desired-file-sizes(Str:D $s, UInt $chars-per-line = 100) returns List is export {
-    # input is the desired file size in megabytes or gigabytes
-    # file is
+sub get-desired-file-sizes(Str:D $s, UInt $bytes-per-line = 100 --> List) is export {
+    # input is the desired file size in megabytes or gigabytes, e.g., '100m'
+
     my ($size, $size-modifier, $nlines );
 
     if $s ~~ /^ (\d+) (<[:i mg]>) $/ {
@@ -24,10 +24,10 @@ sub get-desired-file-sizes(Str:D $s, UInt $chars-per-line = 100) returns List is
     #say "DEBUG: sz = '$sz'; sm = '$sm'";
     # need nlines
     if $size-modifier eq 'M' {
-	$nlines = $size * 1_000_000 div $chars-per-line;
+	$nlines = $size * 1_000_000 div $bytes-per-line;
     }
     elsif $size-modifier eq 'G' {
-	$nlines = $size * 1_000_000_000 div $chars-per-line;
+	$nlines = $size * 1_000_000_000 div $bytes-per-line;
     }
     else {
 	die "FATAL: Unknown desired file size modifier '$size-modifier'.";
@@ -69,3 +69,18 @@ sub my-date-time-stamp(:$short, :$shorter) is export {
     return $date;
 
 } # my-date-time-stamp
+
+sug read-file(
+              UInt:D :$size! where {$size > 0},
+              Str :$size-modifier! where {:i M|G},
+              UInt:D :$perl-num! where {5|6},
+              Str:D :$file-encoding! where {ascii|utf8},
+              Str:D :$exec-encoding! where {ascii|utf8|default},
+             ) {
+    # form the input file name
+    #   large-{$size}-{$size-modifier}-{$file-encoding}-file.txt
+    # form the file reader name
+    #   read-file-test-{$exec-encoding}.p[l|6]
+
+    # some restrictions:
+    #   Perl 5: 
