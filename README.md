@@ -86,7 +86,7 @@ Notes:
 
 3. **Improvement** - (prev P6T/P5T less curr P6T/P5T)/(prev P6T/P5T)
 
-4. When the number of trials is > 1, the RT data are averages over that number.
+4. When the number of trials is > 1, the user time data are averages over that number.
 
 5. This suite is developed on a Debian system with no consideration to
    it running successfully on any other OS.  Pull requests are
