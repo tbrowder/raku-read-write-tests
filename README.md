@@ -67,16 +67,16 @@ The tests currently compare Perl 6 versus Perl 5 under the following conditions:
 
 + File type: ASCII
 
-+ Rakudo version: 2017.06-45-g86e7b2b 
++ Rakudo version: 2017.06-45-g86e7b2b
 
 + Perl 5 version: 5.20.2
 
-| File Sz (lines) | Trials | Perl 5 T  | Perl 6 T  | P6T / P5T | Improvement
-| ---:            | :---:  | ---:       | ---:       | :---: | :--: |
-|          10,000 |    3   |     0.03 s |     0.60 s |  20.0 | 30.3% |
-|      10,000,000 |    3   |     2.67 s |    32.27 s |  12.1 | 36.0% |
-|      50,000,000 |    3   |    24.37 s |   276.41 s |  11.3 | 24.7% |
-|     100,000,000 |    3   |    55.40 s |   582.37 s |  10.5 | 19.2%|
+| Size  | Number lines) | Trials | Perl 5 T  | Perl 6 T  | P6T / P5T | Improvement
+| ---:  | ---:          | :---:  | ---:       | ---:       | :---: | :--: |
+|  1 Mb |        10,000 |    3   |     0.03 s |     0.60 s |  20.0 | 30.3% |
+|  1 Gb |    10,000,000 |    3   |     2.67 s |    32.27 s |  12.1 | 36.0% |
+|  5 Gb |    50,000,000 |    3   |    24.37 s |   276.41 s |  11.3 | 24.7% |
+| 10 Gb |   100,000,000 |    3   |    55.40 s |   582.37 s |  10.5 | 19.2%|
 
 Notes:
 
