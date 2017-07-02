@@ -70,12 +70,12 @@ sub my-date-time-stamp(:$short, :$shorter) is export {
 
 } # my-date-time-stamp
 
-sug read-file(
+sub read-file(
+              Str :$size-modifier! where {/:i M|G/},
               UInt:D :$size! where {$size > 0},
-              Str :$size-modifier! where {:i M|G},
-              UInt:D :$perl-num! where {5|6},
-              Str:D :$file-encoding! where {ascii|utf8},
-              Str:D :$exec-encoding! where {ascii|utf8|default},
+              UInt:D :$perl-num! where {/5|6/},
+              Str:D :$file-encoding! where {/:i ascii|utf8/},
+              Str:D :$exec-encoding! where {/:i ascii|utf8|default/},
              ) {
     # form the input file name
     #   large-{$size}-{$size-modifier}-{$file-encoding}-file.txt
@@ -84,3 +84,5 @@ sug read-file(
 
     # some restrictions:
     #   Perl 5: 
+}
+
