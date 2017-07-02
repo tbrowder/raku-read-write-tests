@@ -17,9 +17,11 @@ of 100 bytes, including the ending newline.
 
 The tests currently compare Perl 6 versus Perl 5 under the following conditions:
 
-   reading UTF-8 files (Perl 5 using the '<:encoding(UTF-8)' form of open)
-   reading ASCII files (native read with both Perl versions)
-   reading ASCII files (Perl 6 using the ':enc<ascii>' form of open)
++ reading UTF-8 files (Perl 5 using the '<:encoding(UTF-8)' form of open)
+
++ reading ASCII files (native read with both Perl versions)
+
++ reading ASCII files (Perl 6 using the ':enc<ascii>' form of open)
 
 ## Running the tests
 
