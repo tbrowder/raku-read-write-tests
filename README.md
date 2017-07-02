@@ -15,6 +15,12 @@ Perl 5 in closing the gap of processing an ASCII or UTF-8 file of many lines.
 The test files are of varying numbers of lines, each line consisting
 of 100 bytes, including the ending newline.
 
+The tests currently compare Perl 6 versus Perl 5 under the following conditions:
+
+   reading UTF-8 files (Perl 5 using the '<:encoding(UTF-8)' form of open)
+   reading ASCII files (native read with both Perl versions)
+   reading ASCII files (Perl 6 using the ':enc<ascii>' form of open)
+
 ## Running the tests
 
 1. Edit file `run-rw-tests.p6` to set the value of array `@S` to the
