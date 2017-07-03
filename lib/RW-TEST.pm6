@@ -83,6 +83,48 @@ sub read-file(
     #   read-file-test-{$exec-encoding}.p[l|6]
 
     # some restrictions:
-    #   Perl 5: 
+    #   Perl 5:
 }
 
+sub get-host-info(--> List) is export {
+    my ($HOST, $HOSTINFO);
+
+    =begin comment
+    my $cmd = "hostname -s";
+    my $proc = run $cmd.words, :out;
+    my $HOST = $proc.out.slurp(:close);
+    $HOST .= chomp;
+    $cmd = "uname -a";
+    $proc = run $cmd.words, :out;
+    my $HOSTINFO = $proc.out.slurp-rest;
+    $HOSTINFO .= chomp;
+    =end comment
+
+    return $HOST, $HOSTINFO;
+}
+
+sub get-perl-versions(--> List) is export {
+    my ($p5v, $p6v, $rv, $mv);
+
+    =begin comment
+    # perl 5 =====
+    # one-liner to get perl 5 version:
+    # $ perl -e  'printf "%vd\n", $^V'
+    # 5.14.2
+    $proc = shell "perl -e 'printf \"\%vd\", \$^V'", :out;
+    my $p5v  = $proc.out.slurp-rest;
+    #die "DEBUG: Perl 5 version: $p5v";
+    # perl 6 =====
+    $proc = shell "perl6 -v", :out;
+    my $p6v  = $proc.out.slurp-rest;
+    #die "DEBUG: Perl 6 version: $p6v";
+    my @s = $p6v.lines;
+    my $s = @s.join(' ');
+    @s = $s.words;
+    ## 'This is Rakudo version 2015.12 built on MoarVM version 2015.12 implementing Perl 6.c.'
+    my ($rv, $mv, $p6v) = (@s[4], @s[9], @s[*-1]);
+    $p6v ~~ s/\.$//;
+    =end comment
+
+    return $p5v, $p6v, $rv, $mv;
+}

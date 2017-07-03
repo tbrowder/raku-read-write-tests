@@ -1,5 +1,6 @@
 #!/usr/bin/env perl6
 
+use Getopt::Std;
 use Text::More :commify;
 
 # the following module is not in the ecosystem yet but is available
@@ -11,37 +12,48 @@ use RW-TEST;
 
 # test file sizes:
 my @S;
+#@S = <1m 1g 5g 10g>; # 10K, 10M, 50M, 100M lines, respectively
+#@S = <1m>;
+#@S = <1g>;
+#@S = <1m 2 3 4 5>;
+#@S = <1m 100>;
+#@S = <1m 2 3 4 5>;
 @S = <1m 1g 5g 10g>; # for publishing, yields (in numbers of lines): 10K, 10M, 50M, 100M
-@S = <1m 2m>;        # for development testing, yields (in numbers of lines): 10K, 20K
 
 my $ntrials = 3; # number of times to run each file test and average it
-$ntrials = 1;
-
-if !@*ARGS {
-    say qq:to/HERE/;
-    Usage: $*PROGRAM.basename go
-
-      Currently the \@S array contains: '{@S.gist}'
-      and \$ntrials is set to '{$ntrials}'.
-      Edit this file and modify those values to test
-      reading files of desired size and number of trials.
-    HERE
-    exit;
-}
 
 my $run-perl6 = True;
-$run-perl6 = False; # for speedy testing of this file
+#my $run-perl6 = False; # for speedy testing of this file
 
 # create two dirs if they don't exist
-mkdir 'data' if not 'data'.IO.d;
-mkdir 'logs-long' if not 'logs-long'.IO.d;
-mkdir 'logs-short' if not 'logs-short'.IO.d;
+mkdir 'data' if not 'data'.IO ~~ :d;
+mkdir 'logs-long' if not 'logs-long'.IO ~~ :d;
+mkdir 'logs-short' if not 'logs-short'.IO ~~ :d;
 
 # get host info
-my ($HOST, $HOSTINFO) = get-host-info();
+my $cmd = "hostname -s";
+my $proc = run $cmd.words, :out;
+my $HOST = $proc.out.slurp-rest;
+$HOST .= chomp;
+$cmd = "uname -a";
+$proc = run $cmd.words, :out;
+my $HOSTINFO = $proc.out.slurp-rest;
+$HOSTINFO .= chomp;
 
 # get perl versions
-my ($p5v, $p6v, $rv, $mv) = get-perl-versions();
+
+# perl 5 =====
+# one-liner to get perl 5 version:
+# $ perl -e  'printf "%vd\n", $^V'
+# 5.14.2
+$proc = shell "perl -e 'printf \"\%vd\", \$^V'", :out;
+my $p5v  = $proc.out.slurp-rest;
+#die "DEBUG: Perl 5 version: $p5v";
+
+# perl 6 =====
+$proc = shell "perl6 -v", :out;
+my $p6v  = $proc.out.slurp-rest;
+#die "DEBUG: Perl 6 version: $p6v";
 
 # put all output in two log files
 my $stamp = my-date-time-stamp(:short(True));
@@ -62,8 +74,14 @@ $fp.say: qq:to/END-A/;
 # Perl 5 version: $p5v
 END-A
 
+my @s = $p6v.lines;
+my $s = @s.join(' ');
+@s = $s.words;
+## 'This is Rakudo version 2015.12 built on MoarVM version 2015.12 implementing Perl 6.c.'
+my ($rv, $mv, $pv) = (@s[4], @s[9], @s[*-1]);
+$pv ~~ s/\.$//;
 $fp.say: qq:to/END-B/;
-# Perl 6 version: $p6v
+# Perl 6 version: $pv
 # Rakudo version: $rv
 # MoarVM version: $mv
 ====================================
