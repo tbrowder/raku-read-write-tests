@@ -17,9 +17,16 @@ my @S;
 my $ntrials = 3; # number of times to run each file test and average it
 $ntrials = 1;
 
+die "FATAL:  Empty \@S array.\n" if !@S;
+die "FATAL:  \$ntrials must be > 0.\n" if $ntrials < 1;
+
+my $rakrel = "2017.04";
 if !@*ARGS {
     say qq:to/HERE/;
-    Usage: $*PROGRAM.basename go
+    Usage: $*PROGRAM.basename curr | prev
+
+      The 'curr' option uses the installed Perl 6 and the 'prev'
+      option uses the older Perl in release '$rakrel'.
 
       Currently the \@S array contains: '{@S.gist}'
       and \$ntrials is set to '{$ntrials}'.
@@ -32,6 +39,52 @@ if !@*ARGS {
 my $run-perl6 = True;
 $run-perl6 = False; # for speedy testing of this file
 
+my $ver = '';
+for @*ARGS -> $arg {
+    when /^ :i c / { $ver = 'curr'; }
+    when /^ :i p / { $ver = 'prev'; }
+    default { die "FATAL:  Unknown arg '$arg'.\n"; } 
+}
+
+die "FATAL:  No option entered.\n" if !$ver;
+
+# run the test progs ===========================
+my @title;
+my @title2;
+my @p5-ascii-time;
+my @p5-utf8-time;
+my @p6-ascii-time;
+my @p6-utf8-time;
+my @p6-default-time;
+for @S.kv -> $i, $str-size {
+    my ($size, $size-modifier, $nlines) = get-file-sizes($str-size);
+    @title[$i]  = "File size:    $size $size-modifier";
+    @title2[$i] = "Number lines: $nlines";
+
+    # file names include their dir: ./data
+    my ($ifil-ascii, $ifil-utf8) = get-input-files($size, $size-modifier);
+    if !$ifil-ascii.IO.f {
+        my $cmd = "bin/create-ascii-file.pl $ifil-ascii";
+    }
+    if !$ifil-utf8.IO.f {
+        my $cmd = "bin/create-utf8-file.p6 $ifil-utf8";
+    }
+
+    =begin comment
+    # the tests
+    # file names include their dir: ./data
+    @p5-ascii-time[$i]   = run-read-test();
+    @p5-utf8-time[$i]    = run-read-test();
+    @p6-ascii-time[$i]   = run-read-test();
+    @p6-utf8-time[$i]    = run-read-test();
+    @p6-default-time[$i] = run-read-test();
+    =end comment
+
+}
+
+# now log results ===========================
+
+=begin comment
 # create two dirs if they don't exist
 mkdir 'data' if not 'data'.IO.d;
 mkdir 'logs-long' if not 'logs-long'.IO.d;
@@ -41,7 +94,7 @@ mkdir 'logs-short' if not 'logs-short'.IO.d;
 my ($HOST, $HOSTINFO) = get-host-info();
 
 # get perl versions
-my ($p5v, $p6v, $rv, $mv) = get-perl-versions();
+my ($p5v, $p6v, $rv, $nv, $mv) = get-perl-versions();
 
 # put all output in two log files
 my $stamp = my-date-time-stamp(:short(True));
@@ -60,14 +113,11 @@ $fp.say: qq:to/END-A/;
 # Test host: $HOST
 # Host info: $HOSTINFO
 # Perl 5 version: $p5v
-END-A
-
-$fp.say: qq:to/END-B/;
 # Perl 6 version: $p6v
 # Rakudo version: $rv
 # MoarVM version: $mv
 ====================================
-END-B
+END-A
 
 # commands for the various tests
 my $P5R = './bin/read-file-test.pl';
@@ -218,3 +268,4 @@ say qq:to/END-F/;
     '$ofil-short'
 
 END-F
+=end comment

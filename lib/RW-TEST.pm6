@@ -4,7 +4,7 @@ unit module RW-TEST;
 #my $debug = True;
 my $debug = False;
 
-sub get-desired-file-sizes(Str:D $s, UInt $bytes-per-line = 100 --> List) is export {
+sub get-file-sizes(Str:D $s, UInt $bytes-per-line = 100 --> List) is export {
     # input is the desired file size in megabytes or gigabytes, e.g., '100m'
 
     my ($size, $size-modifier, $nlines );
@@ -35,7 +35,7 @@ sub get-desired-file-sizes(Str:D $s, UInt $bytes-per-line = 100 --> List) is exp
 
     return $size, $size-modifier, $nlines;
 
-} # get-desired-file-sizes
+} # get-file-sizes
 
 sub my-date-time() is export {
     my $date = DateTime.now(formatter => {
@@ -84,7 +84,8 @@ sub read-file(
 
     # some restrictions:
     #   Perl 5:
-}
+
+} # read-file
 
 sub get-host-info(--> List) is export {
     my ($HOST, $HOSTINFO);
@@ -101,7 +102,7 @@ sub get-host-info(--> List) is export {
     =end comment
 
     return $HOST, $HOSTINFO;
-}
+} # get-host-info
 
 sub get-perl-versions(--> List) is export {
     my ($p5v, $p6v, $rv, $mv);
@@ -127,4 +128,7 @@ sub get-perl-versions(--> List) is export {
     =end comment
 
     return $p5v, $p6v, $rv, $mv;
-}
+} # get-perl-versions
+
+sub get-input-files($size, $size-modifier --> List) is export {
+} # get-input-files
