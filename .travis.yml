@@ -13,4 +13,4 @@ install:
     # the following command avoids double-testing of the target module:
     - git clone https://github.com/tbrowder/Proc-More-Perl6.git
     - zef install ./Proc-More-Perl6
-    - zef install --depsonly .
+    - zef install --deps-only .
