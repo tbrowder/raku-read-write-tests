@@ -1,5 +1,7 @@
 unit module RW-TEST;
 
+use Proc::More :time-command;
+
 # for local test funcs
 #my $debug = True;
 my $debug = False;
@@ -7,7 +9,7 @@ my $debug = False;
 sub get-file-sizes(Str:D $s, UInt $bytes-per-line = 100 --> List) is export {
     # input is the desired file size in megabytes or gigabytes, e.g., '100m'
 
-    my ($size, $size-modifier, $nlines );
+    my ($size, $size-modifier, $nlines);
 
     if $s ~~ /^ (\d+) (<[:i mg]>) $/ {
 	$size          = +$0;
@@ -70,6 +72,57 @@ sub my-date-time-stamp(:$short, :$shorter) is export {
 
 } # my-date-time-stamp
 
+sub time-file-read(:$size!, 
+                   UInt:D :$perl-num! where {$_ == 5 || $_ == 6},
+                   Str:D :$ftyp! where {$_ ~~ /:i ascii|utf8|latin1/},
+                   Str:D :$etyp! where {$_ ~~ /:i ascii|utf8|latin1|default/},
+                   UInt:D :$ntrials!,
+                   --> Real
+                  ) is export {
+
+    my $file-encoding = $ftyp;
+    my $exec-encoding = $etyp;
+
+    # form the file reader name
+    #   read-file-test-{$exec-encoding}.p[l|6]
+    my $suf = $perl-num == 5 ?? 'pl' !! 'p6';
+    my $exe = "./bin/read-file-test-{$exec-encoding}.{$suf}";
+
+    # form the input file name
+    my ($nsize, $size-modifier, $nlines) = get-file-sizes $size;
+    #   large-{$nsize}-{$size-modifier}-{$file-encoding}-file.txt
+    my $ifil = "./data/large-{$nsize}-{$size-modifier}-{$file-encoding}-file.txt";
+
+    # must create the file if it doesn't exist
+    if !$ifil.IO.f {
+        # form the file creator name
+        #   create-large-file-{$file-encoding}.p[l|6]
+        # note we only create two kinds of text file:
+        #   utf8 
+        #   ascii [also used for latin-1 reading]
+        my $cmd;
+        if $file-encoding ~~ /utf8/ {
+            $cmd = "./bin/create-large-file-utf8.p6";
+        }
+        else {
+            $cmd = "./bin/create-large-file-asci.pl";
+        }
+        # add the args
+        $cmd ~= " $nsize $size-modifier";
+        run $cmd.words;
+    }
+
+    my $t = 0;
+    for 1..$ntrials {
+        my $cmd = "";
+        $t += time-command $cmd;
+    }
+
+    return $t/$ntrials;
+
+} # time-read-file
+
+=begin comment
 sub read-file(
               Str :$size-modifier! where {/:i M|G/},
               UInt:D :$size! where {$size > 0},
@@ -79,13 +132,18 @@ sub read-file(
              ) {
     # form the input file name
     #   large-{$size}-{$size-modifier}-{$file-encoding}-file.txt
+    my $ifil = "./data/large-{$size}-{$size-modifier}-{$file-encoding}-file.txt";
+
     # form the file reader name
     #   read-file-test-{$exec-encoding}.p[l|6]
+    my $suf = $perl-num == 5 ?? 'pl' !! 'p6';
+    my $rfil = "./bin/read-file-test-{$exec-encoding}.{$suf}";
 
     # some restrictions:
     #   Perl 5:
 
 } # read-file
+=end comment
 
 sub get-host-info(--> List) is export {
     my ($HOST, $HOSTINFO);
@@ -105,30 +163,31 @@ sub get-host-info(--> List) is export {
 } # get-host-info
 
 sub get-perl-versions(--> List) is export {
-    my ($p5v, $p6v, $rv, $mv);
+    my ($p5v, $p6v, $rv, $mv, $proc);
 
-    =begin comment
     # perl 5 =====
     # one-liner to get perl 5 version:
     # $ perl -e  'printf "%vd\n", $^V'
     # 5.14.2
     $proc = shell "perl -e 'printf \"\%vd\", \$^V'", :out;
-    my $p5v  = $proc.out.slurp-rest;
+    $p5v  = $proc.out.slurp-rest;
     #die "DEBUG: Perl 5 version: $p5v";
+
     # perl 6 =====
     $proc = shell "perl6 -v", :out;
-    my $p6v  = $proc.out.slurp-rest;
+    $p6v  = $proc.out.slurp-rest;
     #die "DEBUG: Perl 6 version: $p6v";
     my @s = $p6v.lines;
     my $s = @s.join(' ');
     @s = $s.words;
     ## 'This is Rakudo version 2015.12 built on MoarVM version 2015.12 implementing Perl 6.c.'
-    my ($rv, $mv, $p6v) = (@s[4], @s[9], @s[*-1]);
+    ($rv, $mv, $p6v) = (@s[4], @s[9], @s[*-1]);
     $p6v ~~ s/\.$//;
-    =end comment
 
     return $p5v, $p6v, $rv, $mv;
 } # get-perl-versions
 
 sub get-input-files($size, $size-modifier --> List) is export {
+    # should return two file names, one ASCII and one UTF8
+
 } # get-input-files

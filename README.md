@@ -21,7 +21,9 @@ The tests currently compare Perl 6 versus Perl 5 under the following conditions:
 
 + reading ASCII files (native read with both Perl versions)
 
-+ reading ASCII files (Perl 6 using the ':enc<ascii>' form of open, Perl 5 native read)
++ reading ASCII files (Perl 6 using the ':enc<latin-1>' form of open)
+
++ reading ASCII files (Perl 6 using the ':enc<ascii>' form of open)
 
 ## Running the tests
 
@@ -38,9 +40,9 @@ The tests currently compare Perl 6 versus Perl 5 under the following conditions:
 2. Edit file `run-rw-tests.p6` to set the variable `$ntrials` for
    the number of trials desired for each size file
 
-3. Exexute file `run-rw-tests.p6`.  A log will be generated and placed
-   in the `logs` subdirectories (which will be created if they don't
-   exist).
+3. Exexute file `run-rw-tests.p6`.  Two log files will be generated and 
+   each placed in the appropriate `logs` subdirectories (which will be 
+   created if they don't exist).
 
 ## Results of recent file read tests
 

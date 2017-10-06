@@ -18,13 +18,14 @@ my $fsiz = $ifil.IO.s;
 
 say "  File '$ifil' size: $fsiz bytes" if $debug;
 
+
 my $nlines = 0;
 my $nchars = 0;
-for $ifil.IO.lines -> $line {
+my $fh = open $ifil, :enc<latin-1>; # recognized alias for iso-8859-1
+for $fh.lines -> $line {
     ++$nlines;
     $nchars += $line.chars;
 }
-
 
 if $debug {
     # adjust for newlines being removed

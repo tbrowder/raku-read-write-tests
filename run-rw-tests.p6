@@ -11,14 +11,17 @@ use RW-TEST;
 
 # test file sizes:
 my @S;
-@S = <1m 1g 5g 10g>; # for publishing, yields (in numbers of lines): 10K, 10M, 50M, 100M
 @S = <1m 2m>;        # for development testing, yields (in numbers of lines): 10K, 20K
+#@S = <1m 1g 5g 10g>; # for publishing, yields (in numbers of lines): 10K, 10M, 50M, 100M
 
 my $ntrials = 3; # number of times to run each file test and average it
-$ntrials = 1;
+#$ntrials = 1;
+my $run-perl6 = True;
+#$run-perl6 = False; # for speedy testing of this file
 
 die "FATAL:  Empty \@S array.\n" if !@S;
 die "FATAL:  \$ntrials must be > 0.\n" if $ntrials < 1;
+note "WARNING: \$run-perl6 is set to False for speedy testing of this exec file." if !$run-perl6;
 
 my $rakrel = "2017.04";
 if !@*ARGS {
@@ -26,65 +29,70 @@ if !@*ARGS {
     Usage: $*PROGRAM.basename curr | prev
 
       The 'curr' option uses the installed Perl 6 and the 'prev'
-      option uses the older Perl in release '$rakrel'.
+      option uses the older Perl 6 in release '$rakrel'.
 
       Currently the \@S array contains: '{@S.gist}'
       and \$ntrials is set to '{$ntrials}'.
+
       Edit this file and modify those values to test
-      reading files of desired size and number of trials.
+      reading files of the desired size and number of trials.
     HERE
     exit;
 }
 
-my $run-perl6 = True;
-$run-perl6 = False; # for speedy testing of this file
 
 my $ver = '';
-for @*ARGS -> $arg {
+for @*ARGS {
     when /^ :i c / { $ver = 'curr'; }
     when /^ :i p / { $ver = 'prev'; }
-    default { die "FATAL:  Unknown arg '$arg'.\n"; } 
+    default { die "FATAL:  Unknown arg '$_'.\n"; }
 }
 
 die "FATAL:  No option entered.\n" if !$ver;
 
+
 # run the test progs ===========================
 my @title;
 my @title2;
-my @p5-ascii-time;
-my @p5-utf8-time;
-my @p6-ascii-time;
-my @p6-utf8-time;
-my @p6-default-time;
-for @S.kv -> $i, $str-size {
-    my ($size, $size-modifier, $nlines) = get-file-sizes($str-size);
-    @title[$i]  = "File size:    $size $size-modifier";
+my @p5-ascii-time;  # default
+my @p5-utf8-time;   # special encoding
+
+my @p6-ascii-time;  # special encoding
+my @p6-latin1-time; # special encoding
+my @p6-utf8-time;   # default
+
+for @S.kv -> $i, $size {
+    my ($nsize, $size-modifier, $nlines) = get-file-sizes $size;
+    @title[$i]  = "File size:    $nsize $size-modifier";
     @title2[$i] = "Number lines: $nlines";
 
-    # file names include their dir: ./data
-    my ($ifil-ascii, $ifil-utf8) = get-input-files($size, $size-modifier);
+    =begin comment
+    # input file names include their dir: ./data
+    my ($ifil-ascii, $ifil-utf8) = get-input-files $size, $size-modifier;
     if !$ifil-ascii.IO.f {
-        my $cmd = "bin/create-ascii-file.pl $ifil-ascii";
+        my $cmd = "./bin/create-ascii-file.pl $ifil-ascii";
     }
     if !$ifil-utf8.IO.f {
-        my $cmd = "bin/create-utf8-file.p6 $ifil-utf8";
+        my $cmd = "./bin/create-utf8-file.p6 $ifil-utf8";
     }
-
-    =begin comment
-    # the tests
-    # file names include their dir: ./data
-    @p5-ascii-time[$i]   = run-read-test();
-    @p5-utf8-time[$i]    = run-read-test();
-    @p6-ascii-time[$i]   = run-read-test();
-    @p6-utf8-time[$i]    = run-read-test();
-    @p6-default-time[$i] = run-read-test();
     =end comment
+
+    #=begin comment
+    # the tests
+    my $perl-num = 5;
+    @p5-ascii-time[$i]   = time-file-read :$size, :ftyp<ascii>,  :$perl-num, :$ntrials, :etyp<default>;
+    @p5-utf8-time[$i]    = time-file-read :$size, :ftyp<utf8>,   :$perl-num, :$ntrials, :etyp<utf8>;
+
+    $perl-num = 6;
+    @p6-ascii-time[$i]   = time-file-read :$size, :ftyp<ascii>,  :$perl-num, :$ntrials, :etyp<ascii>;
+    @p6-latin1-time[$i]  = time-file-read :$size, :ftyp<ascii>,  :$perl-num, :$ntrials, :etyp<latin1>;
+    @p6-utf8-time[$i]    = time-file-read :$size, :ftyp<utf8>,   :$perl-num, :$ntrials, :etyp<default>;
+    #=end comment
 
 }
 
 # now log results ===========================
 
-=begin comment
 # create two dirs if they don't exist
 mkdir 'data' if not 'data'.IO.d;
 mkdir 'logs-long' if not 'logs-long'.IO.d;
@@ -119,6 +127,7 @@ $fp.say: qq:to/END-A/;
 ====================================
 END-A
 
+=begin comment
 # commands for the various tests
 my $P5R = './bin/read-file-test.pl';
 my $P5W = './bin/create-large-file.pl';

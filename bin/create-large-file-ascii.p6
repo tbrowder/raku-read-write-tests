@@ -39,7 +39,7 @@ else {
     die "FATAL:  Unknown size modifier '$arg2'";
 }
 
-my $odir = shift @ARGV;
+my $odir = shift @*ARGS;
 $odir = '.' if not $odir.defined;
 
 my $typ = 'ascii';
